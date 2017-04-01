@@ -1,0 +1,4 @@
+HTML and CSS
+HTML is the structure of the page
+CSS is the way to render the structure
+Keep them seperate! It is the right way to do it

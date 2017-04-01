@@ -1,0 +1,110 @@
+﻿/* site.css */
+body /*Body is the selector - create rules within Body */ {
+    font-family: sans-serif;
+    font-size: 14px;
+    margin: 0;
+}
+
+label /*label is a the selector - create rules to all labels */ {
+    font-weight: bold;
+    /*display- how an element is displayed on a page*/
+    display: block;
+}
+
+input[type=text], input[type=password], textarea {
+    width: 150px;
+}
+
+/*/*input[type=submit] /*create an exception ...(top down) overide for the submit button
+{
+    width:auto;                 ?* insted be more specific on original input selctor
+
+}*/
+
+#main {
+    background-color: #eee;
+    padding: 4px;
+    margin: 0; /*when no padding - better not to specify the unit*/
+}
+
+#footer {
+    background-color: #222;
+    color: #eee; /*colore = foregroundcolor*/
+    padding: 8px 5px; /* top right bottom left*/
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+
+/*#sidebar img {
+    max-width: 50px
+} rather create a class eg in index - "headshot  border and other multi parameters */
+.headshot {
+    max-width: 50px;
+    border: 1px solid #222;
+    padding: 3px;
+}
+
+/*for menu UL items:*/
+.menu {
+    font-size: 12px;
+}
+
+    /*for menu UL items - get rid of bulleted objects*/
+    .menu li {
+        list-style-type: none;
+    }
+
+        /*Class to add and apply to the menu - so in menu list craete a class called "active*/
+        /* trick not to include the space for particular elemetn - between li and .active*/
+
+        .menu li .active {
+            font-weight: bold;
+        }
+
+        .menu li a {
+            color: #eee;
+        }
+
+/*SideBAR*/
+#sidebar {
+    background: #2a2c36;
+    color: #eee;
+    position: fixed;
+    height: 100%;
+    width: 250px;
+    overflow: hidden;
+    left: 0;
+    margin: 0;
+    -moz-transition: left ease .25s;
+    -o-transition: left ease .25s;
+    -webkit-transition: left ease .25s;
+    transition: left ease .25s;
+}
+
+    #sidebar.hide-sidebar {
+        left: -250px; /*thats how wide so this should take it off the page*/
+        -moz-transition: left ease .25s;
+        -o-transition: left ease .25s;
+        -webkit-transition: left ease .25s;
+        transition: left ease .25s; /*hovering over eg transition would show which browsers are specific::!!
+             RIGHT CLICK - ADD VENDOR SPECIFIC*/
+    }
+
+
+#wrapper {
+    margin: 0 0 0 250px;
+     -moz-transition: margin-left ease .25s;
+    -o-transition: margin-left ease .25s;
+    -webkit-transition: margin-left ease .25s;  
+    transition: margin-left ease .25s;
+}
+
+    #wrapper.hide-sidebar {
+        margin-left: 0; /*get rid of gap*/
+        -moz-transition: margin-left ease .25s;
+        -o-transition: margin-left ease .25s;
+        -webkit-transition: margin-left ease .25s;
+        transition: margin-left ease .25s;
+    }

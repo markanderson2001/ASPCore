@@ -1,0 +1,29 @@
+﻿
+<!--//Tell our view what the model for this page is, what data is going to be sent to it and from it-->
+<!--//do that with an (a)Model declaration-->
+
+@model TheWorld.ViewModels.ContactViewModel
+@{
+    ViewBag.Title = "Contact Page"; //do this so we can inject this directly into the layout page
+
+ }
+
+@section Scripts{
+    <!-- Want to run this in our page (from json library added)-->
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+
+<h2>Contact Me</h2>
+<form> <!--hook up to MVC6-->
+    <label asp-for="Name"></label>
+    <input asp-for="Name" /><!--Input that would accept the name-->
+    <label asp-for="Email"></label>
+    <input type="email" asp-for="Email" /><!--Input that would accept the name-->
+    <label asp-for="Message"></label>
+    <textarea cols="40" row= "4" asp-for ="Message"></textarea>
+    <div>   
+        <input type="submit" value="Send Message"/>
+    </div>
+</form>
+

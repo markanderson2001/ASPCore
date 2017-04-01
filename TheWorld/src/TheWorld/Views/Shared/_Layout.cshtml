@@ -1,0 +1,68 @@
+﻿<!--Copy all/[paste] from index.html-->
+<!--Razor supports a number of C# constructs - onse is the  and braces to have arbitrary C# content in there-->
+<!--add view with inject for wiring tag helper -->
+<!--Tag helpers start with ASP-, so we know where they are coming from. eg. asp-controller  then asp-action...-->
+<!-- inject IhostingEnvironment env - we want service to be available everywhere so we do it in Views, adding a new type of view Called MVC ViewImports Page --> 
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<!DOCTYPE html>
+
+<html> 
+<head>
+
+    <title>The World - @ViewBag.Title</title>
+    <meta charset="utf-8" />
+
+    <link rel="stylesheet" href="~/css/site.css" /> <!--//trick in razor add tilda / : ~/ added in front - replace this with wahtever the actual ROOT of the website is-->
+
+</head>
+
+<body>
+    
+     <div id="sidebar">
+    
+        <img src="~/img/self.jpg" alt="headshot" class="headshot" /> <!--create a folder in wwwroot for images. Alt becomes important for users that use screen readers - not all users can see img-->
+        <span id="username"> Mark Anderson </span>
+         <ul class="menu">
+             <!--<li class="active"><a href="/">Home</a></li><!-- could simply add links with "/" -->
+             <!--Better idea with Tag Helpers; Iinstead of href-->
+             <li class="active"><a asp-controller="App" asp-action="Index">Home</a></li>
+             <li><a asp-controller="App" asp-action="About">About</a></li><!-- could simply add links with: href="/app/About"< -->
+             <li><a asp-controller="App" asp-action="Contact">Contact</a></li> <!--"/app/cont">Contact-->
+             <!--Tag helpers generates the href programmatically while being rendered on the server-->
+             <!--ensure to enable tag helpers insert project; in Project.json add new dependency "Microsoft.AspNetCore.Mvc.TagHelpers": "1.1.2"-->
+             <!--the wire them up, with another view; View Imports. In _Layout at top we can inViews now - "(a)inject -->   
+             <!--add view with inject for wiring tag helper --> 
+             <!-- inject IhostingEnvironment env - we want service to be available everywhere so we do it in Views, adding a new type of view Called MVC ViewImports Page -->
+
+         </ul>
+    </div>
+
+
+    <div id="wrapper">
+        <div id="main">
+            <div>
+                <button id="sidebarToggle">Toggle Menu</button>
+            </div>
+            @RenderBody() <!--CAll rzor function - this is the place holder - the part of the page im going to inject here-->
+
+        <div id="footer">
+            &copy; 2017 ADPC.
+        </div><!--FOOTER-->
+    </div>
+
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+        <!--added from validation in bower json and contactpage-->
+        @RenderSection("scripts", false) <!--for pages that requires script to be run - to true. Referenced to Contact page-->
+
+
+    <script type="text/javascript" src="~/js/site.js"></script> <!--// made a reference to it in source folder wwwroot - js-->
+
+
+</body>
+
+</html>

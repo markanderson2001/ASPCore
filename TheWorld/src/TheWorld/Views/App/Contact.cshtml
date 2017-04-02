@@ -2,26 +2,33 @@
 <!--//Tell our view what the model for this page is, what data is going to be sent to it and from it-->
 <!--//do that with an (a)Model declaration-->
 
+
 @model TheWorld.ViewModels.ContactViewModel
 @{
     ViewBag.Title = "Contact Page"; //do this so we can inject this directly into the layout page
 
  }
-
+<!--Add the section "scripts as specified in _Layout)-->
 @section Scripts{
     <!-- Want to run this in our page (from json library added)-->
+    <!--to set script to run at end of jquery scripts we set in _Layout; Rendersection("scripts")-->
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
 
 <h2>Contact Me</h2>
-<form> <!--hook up to MVC6-->
+ <!--hook up to MVC6-->
+<form method="post"> <!--Decide which hhtp verbs we are going to use. The over to APP Controller to add support for this-->
+    <span asp-validation-summary ="ModelOnly"</span><!--List of errors that are not about the individual fields eg state/zip-->
     <label asp-for="Name"></label>
     <input asp-for="Name" /><!--Input that would accept the name-->
+    <span asp-validation-for="Name"></span> <!--Feedback to User though tag-helper-->
     <label asp-for="Email"></label>
     <input type="email" asp-for="Email" /><!--Input that would accept the name-->
+    <span asp-validation-for="Email"></span> <!--Feedback to User though tag-helper-->
     <label asp-for="Message"></label>
-    <textarea cols="40" row= "4" asp-for ="Message"></textarea>
+    <textarea cols="40" row= "4" asp-for="Message"></textarea>
+    <span asp-validation-for="Message"></span> <!--Feedback to User though tag-helper-->
     <div>   
         <input type="submit" value="Send Message"/>
     </div>

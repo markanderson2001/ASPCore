@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TheWorld.Services
+namespace TheWorld.services
 {
     public interface IMailService
     {

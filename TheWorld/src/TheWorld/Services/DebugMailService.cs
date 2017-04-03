@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TheWorld.Services
+namespace TheWorld.services
 {
     //driven from mail service interface (can also use "Ctrl .") to impliment interface for us
     public class DebugMailService : IMailService

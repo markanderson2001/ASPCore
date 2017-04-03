@@ -7,15 +7,58 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using TheWorld.services;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.EnvironmentVariables;
 
 namespace TheWorld
+  
 {
     public class Startup
+
     {
+        private IHostingEnvironment _env;
+        private IConfigurationRoot _config;
+
+        //Insead of #If Debug we can use the hosted environment
+        public Startup(IHostingEnvironment env)
+        {
+            _env = env;
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(_env.ContentRootPath)//contentroot is root of project  -to tell where config file is
+                .AddJsonFile("config.json")
+                .AddEnvironmentVariables();//add environment variables
+                    //in properties were going toadd envorinment with MailSetting __ (two underscores to representthe structure - to replace the colon, cause colons of config file are not allowed in non-windows environments
+            _config = builder.Build();//will return IConfigurationRoot - add it to constructor om appcontroller
+            
+        }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(_config);
+
+            //from contact page - 
+            //We can make decision about registering our own service
+            //AddTransient MEANS WE ARE GOING TO SUPPLY AN INTERFACE, fulfilled by a cretain class - in our case debugMailServices
+            //transient means its going to create an instance of debugmailservices as sson as it needs it
+            //services.AddTransient<IMailService, DebugMailService>(); //gets it everytime or getting it from cache
+
+            // or change to Addscoped which will an instance of DebugServices for each set of request
+            // we will use this as we want this debug services to be reused, but only n the scope of a single request
+            //this is fine for debugging, but for productionisnt what we want, may use #if Debug
+            //#if Debug
+            if (_env.IsEnvironment("Development") || _env.IsEnvironment("Testing"))
+                services.AddScoped<IMailService, DebugMailService>();
+            //#else      
+            else
+            {
+                //!!IMpliment a real mail Service - crete a real mail service class that can actually send mail - for staging servers or smokebuilds
+            }
+            //#endif
+            // or services.AddSingleton - create one instance when we need it and pass that instance in over and over again
+
             services.AddMvc();// we are required to use deppendency injection - here we register all the MVC services
         }
 

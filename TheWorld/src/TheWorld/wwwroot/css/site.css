@@ -1,19 +1,21 @@
 ﻿/* site.css */
-body /*Body is the selector - create rules within Body */ {
+/*To use BS view change - in our CSS - remove /COMMENT out body tag, label and input */
+
+/*body Body is the selector - create rules within Body  {
     font-family: sans-serif;
     font-size: 14px;
     margin: 0;
 }
 
-label /*label is a the selector - create rules to all labels */ {
+label label is a the selector - create rules to all labels  {
     font-weight: bold;
-    /*display- how an element is displayed on a page*/
+    display- how an element is displayed on a page
     display: block;
 }
 
 input[type=text], input[type=password], textarea {
     width: 150px;
-}
+}*/
 
 /*/*input[type=submit] /*create an exception ...(top down) overide for the submit button
 {

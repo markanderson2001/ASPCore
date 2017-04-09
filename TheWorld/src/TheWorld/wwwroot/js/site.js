@@ -26,18 +26,21 @@ An immediately invoked function expression
 
     //show and hide sidebar --then codde on css #sidebar
     var $sidebarAndWrapper = $("#sidebar,#wrapper");
-    //var $icon = $("#sidebarToggle i.fa");
+    var $icon = $("#sidebarToggle i.fa");//go find sidebartoggle and as one of the children of it, find i - italic, that is class with fa
+    
+
 
     $("#sidebarToggle").on("click", function () {
         $sidebarAndWrapper.toggleClass("hide-sidebar");
         if ($sidebarAndWrapper.hasClass("hide-sidebar")) {
-            //$icon.removeClass("fa-angle-left");
-            //$icon.addClass("fa-angle-right");
-            $(this).text("Show SideBar")//sidebar toggle btn txt
+            $icon.removeClass("fa-angle-left");
+            $icon.addClass("fa-angle-right");
+        //    $(this).text("Show SideBar")//sidebar toggle btn txt
         } else {
-            //$icon.removeClass("fa-angle-right");
-            //$icon.addClass("fa-angle-left");
-            $(this).text("Hide SideBar")
+            $icon.addClass("fa-angle-left");
+            $icon.removeClass("fa-angle-right");
+            
+          //  $(this).text("Hide SideBar")
         }
     });
 })();

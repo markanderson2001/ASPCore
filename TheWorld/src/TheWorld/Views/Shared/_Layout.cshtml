@@ -16,8 +16,14 @@
 
     <title>The World - @ViewBag.Title</title>
     <meta charset="utf-8" />
-
+    
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> <!--//not include theme.css (bootstraps default look & Feel) - we will use somethiong else later to them it -->
+    
+    <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
+
+    
+
+
     <link rel="stylesheet" href="~/css/site.css" /> <!--//trick in razor add tilda / : ~/ added in front - replace this with wahtever the actual ROOT of the website is-->
 
 </head>
@@ -29,6 +35,7 @@
         <img src="~/img/self.jpg" alt="headshot" class="headshot" /> <!--create a folder in wwwroot for images. Alt becomes important for users that use screen readers - not all users can see img-->
         <span id="username"> Mark Anderson </span>
         <ul class="menu">
+            
             <!--<li class="active"><a href="/">Home</a></li><!-- could simply add links with "/" -->
             <!--Better idea with Tag Helpers; Iinstead of href-->
             <li class="active"><a asp-controller="App" asp-action="Index">Home</a></li>
@@ -44,25 +51,41 @@
     </div>
 
 
-    <div id="wrapper"></div><!--040817_484-->
+    <div id="wrapper"><!--040817_484-->
         <div id="main">
             <div>
-                <button id="sidebarToggle">Toggle Menu</button>
+                <!--add BS -class:-->
+                <button id="sidebarToggle" class="btn btn-primary btn-sm">
+                    
+                <i class="glyphicon glyphicon-chevron-left"></i> <!--Toggle can keep lbl on btn like -- Toggle -- here-->
+                    <!-- insted of bs  use fontawesome <i class="fa" issue-->
+         
+              
+                </button>
+              
             </div>
-            @RenderBody() <!--CAll rzor function - this is the place holder - the part of the page im going to inject here-->
 
-            <div id="footer">
-                &copy; 2017 ADPC.
-            </div><!--FOOTER-->
+            <div>
+                @RenderBody() <!--CAll rzor function - this is the place holder - the part of the page im going to inject here-->
+            </div>
+
         </div>
 
-        <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+            <div id="footer">
+                 <!--add BS -class:-->
+                <p class="text-primary"> &copy; 2017 ADPC. markandersonweb.com></p>
+        
+            </div><!--FOOTER-->
+    </div>
+
         <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="~/js/site.js"></script> <!--// made a reference to it in source folder wwwroot - js-->
         <!--added from validation in bower json and contactpage-->
         @RenderSection("scripts", false) <!--for pages that requires script to be run - to true. Allows part of code to be emitted in certain places.Referenced to Contact page-->
 
 
-        <script type="text/javascript" src="~/js/site.js"></script> <!--// made a reference to it in source folder wwwroot - js-->
+        
 
 
 </body>

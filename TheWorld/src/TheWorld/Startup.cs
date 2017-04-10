@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using TheWorld.services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.EnvironmentVariables;
+using TheWorld.Models;
 
 namespace TheWorld
   
@@ -58,6 +59,10 @@ namespace TheWorld
             }
             //#endif
             // or services.AddSingleton - create one instance when we need it and pass that instance in over and over again
+
+            //add register; dbcontect - EF  -registerss not only EF but also our specific context. ouContext now injectible in different parts of the project
+            services.AddDbContext<WorldContext>();
+
 
             services.AddMvc();// we are required to use deppendency injection - here we register all the MVC services
         }

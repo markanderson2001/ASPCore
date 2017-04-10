@@ -18,64 +18,90 @@
     <meta charset="utf-8" />
     
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> <!--//not include theme.css (bootstraps default look & Feel) - we will use somethiong else later to them it -->
-    
+    <link rel="stylesheet" href="~/lib/bootswatch/yeti/bootstrap.min.css" /> <!--select theme-->
     <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" />
-
+        <link rel="stylesheet" href="~/css/site.css" /> <!--//trick in razor add tilda / : ~/ added in front - replace this with wahtever the actual ROOT of the website is-->
     
-
-
-    <link rel="stylesheet" href="~/css/site.css" /> <!--//trick in razor add tilda / : ~/ added in front - replace this with wahtever the actual ROOT of the website is-->
-
 </head>
 
 <body>
 
     <div id="sidebar">
-
+        
         <img src="~/img/self.jpg" alt="headshot" class="headshot" /> <!--create a folder in wwwroot for images. Alt becomes important for users that use screen readers - not all users can see img-->
         <span id="username"> Mark Anderson </span>
-        <ul class="menu">
-            
-            <!--<li class="active"><a href="/">Home</a></li><!-- could simply add links with "/" -->
-            <!--Better idea with Tag Helpers; Iinstead of href-->
-            <li class="active"><a asp-controller="App" asp-action="Index">Home</a></li>
-            <li><a asp-controller="App" asp-action="About">About</a></li><!-- could simply add links with: href="/app/About"< -->
-            <li><a asp-controller="App" asp-action="Contact">Contact</a></li> <!--"/app/cont">Contact-->
-            <!--Tag helpers generates the href programmatically while being rendered on the server-->
-            <!--ensure to enable tag helpers insert project; in Project.json add new dependency "Microsoft.AspNetCore.Mvc.TagHelpers": "1.1.2"-->
-            <!--the wire them up, with another view; View Imports. In _Layout at top we can inViews now - "(a)inject -->
-            <!--add view with inject for wiring tag helper -->
-            <!-- inject IhostingEnvironment env - we want service to be available everywhere so we do it in Views, adding a new type of view Called MVC ViewImports Page -->
+        <ul class="nav">
+            <!--another is navbar - includes navigation elements, and can include btns and such-->
+            <!--<ul class="menu">-->
 
-        </ul>
+
+
+                <!--<li class="active"><a href="/">Home</a></li><!-- could simply add links with "/" -->
+                <!--Better idea with Tag Helpers; Iinstead of href-->
+                <li class="active"><a asp-controller="App" asp-action="Index">Home</a></li>
+                <li><a asp-controller="App" asp-action="About">About</a></li><!-- could simply add links with: href="/app/About"< -->
+                <li><a asp-controller="App" asp-action="Contact">Contact</a></li> <!--"/app/cont">Contact-->
+                <!--Tag helpers generates the href programmatically while being rendered on the server-->
+                <!--ensure to enable tag helpers insert project; in Project.json add new dependency "Microsoft.AspNetCore.Mvc.TagHelpers": "1.1.2"-->
+                <!--the wire them up, with another view; View Imports. In _Layout at top we can inViews now - "(a)inject -->
+                <!--add view with inject for wiring tag helper -->
+                <!-- inject IhostingEnvironment env - we want service to be available everywhere so we do it in Views, adding a new type of view Called MVC ViewImports Page -->
+
+            </ul>
     </div>
 
 
-    <div id="wrapper"><!--040817_484-->
-        <div id="main">
-            <div>
-                <!--add BS -class:-->
-                <button id="sidebarToggle" class="btn btn-primary btn-sm">
-                    
-                <i class="glyphicon glyphicon-chevron-left"></i> <!--Toggle can keep lbl on btn like -- Toggle -- here-->
-                    <!-- insted of bs  use fontawesome <i class="fa" issue-->
-         
-              
-                </button>
-              
-            </div>
+    <div id="wrapper"><!--040817_1654-->
+        <nav class="navbar navbar-inverse"><!--Navigation bar-->
+            <div class="container-fluid">
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <!--add BS -class:-->
+                            <!--<i class="glyphicon glyphicon-chevron-left"></i> <!--Toggle can keep lbl on btn e.g. -- Toggle -- here-->
+                            <!-- insted of bs  use fontawesome <i class="fa" issue-->
+                        <button id="sidebarToggle" class="btn btn-primary btn-sm">
+                            <i class="fa fa-angle-left"></i>
+                        </button>
 
+                    </li>
+
+                </ul>
+
+                <!--create anchor so every page shows this, alo to return to main page especially if menu is not being shown-->
+                <!--<a>ADPC DevOps</a>-->
+                <!--<canvas put inert hfref,like this,  but instead lets use tag helpers-->
+                    <!-- <a href="">ADPC DevOps</a>-->
+                <a asp-controller="App" asp-action="Index" class="navbar-brand">ADPC DevOps</a>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><!--create link and destination (which is this page (thats what the '#" represents"))-->
+                        <a href="#" class="btn btn-sm ntn btn-info">
+                            <i class="fa fa-save"></i> Save
+                        </a>
+                    </li>
+                    <li>
+                        <!--create link and destination (which is this page (thats what the '#" represents"))-->
+                        <a href="#" class="btn btn-sm bt">
+                            <i class="fa fa-print"></i> Print
+                        </a>
+                    </li>
+                </ul>
+             </div>
+
+        </nav>
+        <div id="main" class="container-fluid">
             <div>
-                @RenderBody() <!--CAll rzor function - this is the place holder - the part of the page im going to inject here-->
+              @RenderBody() <!--CAll rzor function - this is the place holder - the part of the page im going to inject here-->
             </div>
 
         </div>
+        <div id="footer" class="container-fluid">
+            <!--add BS -class:-->
+            <!--update to h4, text center, fix to bottom of page with navbar-->
+            <div class="navbar navbar-inverse navbar-fixed-bottom">
+                <h4 class="text-center text-info"> &copy; 2017 ADPC. markandersonweb.com</h4>
 
-            <div id="footer">
-                 <!--add BS -class:-->
-                <p class="text-primary"> &copy; 2017 ADPC. markandersonweb.com></p>
-        
             </div><!--FOOTER-->
+        </div>
     </div>
 
         <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -83,10 +109,7 @@
         <script type="text/javascript" src="~/js/site.js"></script> <!--// made a reference to it in source folder wwwroot - js-->
         <!--added from validation in bower json and contactpage-->
         @RenderSection("scripts", false) <!--for pages that requires script to be run - to true. Allows part of code to be emitted in certain places.Referenced to Contact page-->
-
-
-        
-
+    
 
 </body>
 

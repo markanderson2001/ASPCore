@@ -16,27 +16,38 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
 
-<h2>Contact Me</h2>
- <!--hook up to MVC6-->
-<form method="post">
-    <!--Decide which http verbs we are going to use. The over to APP Controller to add support for this-->
-    <div asp-validation-summary="ModelOnly"></div><!--List of errors that are not about the individual fields eg state/zip-->
-    @if (ViewBag.UserMessage != null)
-    {
-      <div>@ViewBag.UserMessage</div><!--ref inert appcontroller onabort=" usermessage"-->
+<div class="row">
+    <div class="col-md-6 col-md-offset-3"><!-- push it in 3 use 6 or taking up half the page and then cnetering it in the [page]-->
+        <h2>Contact</h2>
+        <!--hook up to MVC6-->
+        <form method="post">
+            <!--Decide which http verbs we are going to use. The over to APP Controller to add support for this-->
+            <div asp-validation-summary="ModelOnly"></div><!--List of errors that are not about the individual fields eg state/zip-->
+            @if (ViewBag.UserMessage != null)
+            {
+                <div>@ViewBag.UserMessage</div><!--ref inert appcontroller onabort=" usermessage"-->
 
-    }
-    <label asp-for="Name"></label>
-    <input asp-for="Name" /><!--Input that would accept the name-->
-    <span asp-validation-for="Name"></span> <!--Feedback to User though tag-helper-->
-    <label asp-for="Email"></label>
-    <input type="email" asp-for="Email" /><!--Input that would accept the name-->
-    <span asp-validation-for="Email"></span> <!--Feedback to User though tag-helper-->
-    <label asp-for="Message"></label>
-    <textarea cols="40" row="4" asp-for="Message"></textarea>
-    <span asp-validation-for="Message"></span> <!--Feedback to User though tag-helper-->
-    <div>
-        <input type="submit" value="Send Message" />
+            }
+            <div class="form-group">
+                <label asp-for="Name">Name</label>
+                <input asp-for="Name" class="form-control"/><!--Input that would accept the name-->
+                <span asp-validation-for="Name" class="text-muted"></span> <!--Feedback to User though tag-helper-->
+            </div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input type="email" asp-for="Email" class="form-control" /><!--Input that would accept the name-->
+                <span asp-validation-for="Email" class="text-muted"></span> <!--Feedback to User though tag-helper-->
+            </div>
+            <div class="form-group">
+                <label asp-for="Message"></label>
+                <textarea cols="40" row="4" asp-for="Message" class="form-control"></textarea>
+                <span asp-validation-for="Message" class="text-muted"></span> <!--Feedback to User though tag-helper-->
+            </div>
+            <div class="form-group">
+                <a asp-controller="App" asp-action="Index" class="btn btn-default">Cancel</a><!-- take user back to home page-->
+                <input type="submit" value="Send Message" class="btn  btn-success" />
+            </div>
+        </form>
     </div>
-</form>
+</div>
 

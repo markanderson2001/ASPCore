@@ -5,21 +5,29 @@
     //Layout = "_Layout"; //or INstead of doing this on every page add new item and create _viewstart.cshtml
     
 }
-<h1>ADPC Web DevOps</h1>
-<p>This will be used as ADPC's Website's Platform </p> <!-- Paragraph level text - simple blocks of text-->
 
-<form>
-    <div>
-        <label>Date</label>
-        <input />
-    </div>
-    <div>
-        <label>Location</label>
-        <input />
-    </div>
-    <div><input type="submit" value="Add" /></div>
-</form>
+<div class="row"><!--Add top level div with class called "row" (Container for making grid decisions inside of)-->
+    <div class="col-md-6 col-xs-8">
 
+        <h1>ADPC Web DevOps</h1>
+        <p>This will be used as ADPC's Website's Platform </p> <!-- Paragraph level text - simple blocks of text-->
+
+        <form>
+            <div class="form-group">
+                <label>Date</label> <!-- added bootsrap form-group & group below-->
+                <input class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input class="form-control"/>
+            </div>
+            <div><input type="submit" value="Add" class="btn btn-success"/></div>
+        </form>
+    </div>
+    <div class="col-md-6 col-xs-1 col-xs-4">
+        <h2>The Map</h2>
+    </div>
+</div>
 
 
 

@@ -23,32 +23,34 @@ input[type=text], input[type=password], textarea {
 
 }*/
 
-#main {
+
+/* Comment out main and footer - replace with BootSwatch theme*/
+/*#main {
     background-color: #eee;
     padding: 4px;
-    margin: 0; /*when no padding - better not to specify the unit*/
-}
-
-#footer {
+    margin: 0; when no padding - better not to specify the unit
+}*/
+ 
+/*#footer {
     background-color: #222;
-    color: #eee; /*colore = foregroundcolor*/
-    padding: 8px 5px; /* top right bottom left*/
+    color: #eee; colore = foregroundcolor
+    padding: 8px 5px;  top right bottom left
     position: fixed;
     bottom: 0;
     width: 100%;
-}
+}*/
 
 
 /*#sidebar img {
     max-width: 50px
-} rather create a class eg in index - "headshot  border and other multi parameters */
+} rather create a class eg in index - "headshot  border and other multi parameters*/ 
 .headshot {
     max-width: 50px;
     border: 1px solid #222;
     padding: 3px;
 }
 
-/*for menu UL items:*/
+/*for menu UL items:
 .menu {
     font-size: 12px;
 }

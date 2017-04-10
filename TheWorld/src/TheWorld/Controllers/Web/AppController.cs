@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using TheWorld.ViewModels;
 using TheWorld.services;
 using Microsoft.Extensions.Configuration;
+using TheWorld.Models;
 
 namespace TheWorld.Controllers.Web
 {
@@ -20,17 +21,24 @@ namespace TheWorld.Controllers.Web
     {
         private IMailService _mailService;
         private IConfigurationRoot _config;
+        private WorldContext _context;
 
         //change controller to support debuging new constructor rather than; new debugMailService()
-        public AppController(IMailService mailService, IConfigurationRoot config)//instantiates "Appcontroler - pass an implementation of this interface
+        public AppController(IMailService mailService, IConfigurationRoot config, WorldContext context)//instantiates "Appcontroler - pass an implementation of this interface. Add EF WorldContext
         {
             _mailService = mailService;
             _config = config;
+            _context = context;
         } 
 
         public IActionResult Index()        //will return simple HTMl view  (no parameters)
         {
-            return View();              //will tell it to find, render taht view and return to useri
+            var data = _context.Trips.ToList();//will get list of all the trips as those trip classes thus var data; return a list of trip objects
+                                               //now we can take this data and pass it into the view:
+                                               // No datbase provider has been configured for this DBContext
+            return View(data);
+
+            //return View();              //will tell it to find, render taht view and return to useri
                                         // no we need the actual view - called a Razor page that represents this view
                                         // do this by creating a new set of directories - add new file theWorld/Views
         }

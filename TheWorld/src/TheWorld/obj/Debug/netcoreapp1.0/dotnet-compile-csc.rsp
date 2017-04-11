@@ -201,6 +201,8 @@
 "C:\Shared\GitHub\Project Files\ASPCore\TheWorld\src\TheWorld\Models\Stop.cs"
 "C:\Shared\GitHub\Project Files\ASPCore\TheWorld\src\TheWorld\Models\Trip.cs"
 "C:\Shared\GitHub\Project Files\ASPCore\TheWorld\src\TheWorld\Models\WorldContext.cs"
+"C:\Shared\GitHub\Project Files\ASPCore\TheWorld\src\TheWorld\Models\WorldContextSeedData.cs"
+"C:\Shared\GitHub\Project Files\ASPCore\TheWorld\src\TheWorld\Models\WorldRepository.cs"
 "C:\Shared\GitHub\Project Files\ASPCore\TheWorld\src\TheWorld\Services\DebugMailService.cs"
 "C:\Shared\GitHub\Project Files\ASPCore\TheWorld\src\TheWorld\Services\IMailService.cs"
 "C:\Shared\GitHub\Project Files\ASPCore\TheWorld\src\TheWorld\ViewModels\ContactViewModel.cs"

@@ -20,6 +20,10 @@ namespace TheWorld.Models
         //create a member that will hold each stop on a trip  -Icollection allow to add and remove (wereas ienumerable is read only
         public ICollection<Stop> Stops { get; set; } //ensure not on root but in models folder if not drag there
 
+        //public static implicit operator Trip(Trip )
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
 

@@ -10597,7 +10597,8 @@
       "Microsoft.EntityFrameworkCore.Tools.DotNet >= 1.0.0-preview3-final",
       "Microsoft.Extensions.Configuration.Json >= 1.0.0",
       "Microsoft.Extensions.Logging.Console >= 1.0.0",
-      "Microsoft.NETCore.App >= 1.0.1"
+      "Microsoft.NETCore.App >= 1.0.1",
+      "System.Linq >= 4.3.0"
     ],
     ".NETCoreApp,Version=v1.0": []
   },

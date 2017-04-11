@@ -63,8 +63,12 @@ namespace TheWorld
             //add register; dbcontect - EF  -registerss not only EF but also our specific context. ouContext now injectible in different parts of the project
             services.AddDbContext<WorldContext>();
 
+            //add to read in sample data
+            services.AddTransient<WorldContextSeedData>(); //also add to configure the last theng is to call it (bottom of paghe
 
             services.AddMvc();// we are required to use deppendency injection - here we register all the MVC services
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,7 +77,8 @@ namespace TheWorld
 
         //We are defining who is handling what and in what order
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)// to set up what to do when requests come in
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
+            ILoggerFactory loggerFactory, WorldContextSeedData seeder)// to set up what to do when requests come in
         {
             //order is important as it will hand it to each middleware in its order!! previously relied on global.asax files (asp.net)
 
@@ -99,6 +104,8 @@ namespace TheWorld
                     defaults: new { controller = "App", action = "Index" }//if app not specified - going to use index method on that controller
                    );               //what route belongs to which controller use a lamda to configure mvs
             });
+
+            seeder.EnsureSeedData().Wait();// with wait it becomes a synchronous operation then its going to return
         }
     }
 }

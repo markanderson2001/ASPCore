@@ -1264,6 +1264,19 @@
           "lib/netstandard1.3/Microsoft.Extensions.Logging.Console.dll": {}
         }
       },
+      "Microsoft.Extensions.Logging.Debug/1.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "1.0.2",
+          "System.Diagnostics.Debug": "4.0.11"
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.Extensions.Logging.Debug.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.Extensions.Logging.Debug.dll": {}
+        }
+      },
       "Microsoft.Extensions.ObjectPool/1.1.0": {
         "type": "package",
         "dependencies": {
@@ -5098,6 +5111,19 @@
         "lib/net451/Microsoft.Extensions.Logging.Console.xml",
         "lib/netstandard1.3/Microsoft.Extensions.Logging.Console.dll",
         "lib/netstandard1.3/Microsoft.Extensions.Logging.Console.xml"
+      ]
+    },
+    "Microsoft.Extensions.Logging.Debug/1.0.2": {
+      "sha512": "dzNlLuTGxMT28k6pPjcHieleXlIfakDwc22wpTv5I6G58E0ecX6zpJTYoqX+RUCZcuUKVQlDEbefX7k6dmewIw==",
+      "type": "package",
+      "path": "Microsoft.Extensions.Logging.Debug/1.0.2",
+      "files": [
+        "Microsoft.Extensions.Logging.Debug.1.0.2.nupkg.sha512",
+        "Microsoft.Extensions.Logging.Debug.nuspec",
+        "lib/net451/Microsoft.Extensions.Logging.Debug.dll",
+        "lib/net451/Microsoft.Extensions.Logging.Debug.xml",
+        "lib/netstandard1.3/Microsoft.Extensions.Logging.Debug.dll",
+        "lib/netstandard1.3/Microsoft.Extensions.Logging.Debug.xml"
       ]
     },
     "Microsoft.Extensions.ObjectPool/1.1.0": {
@@ -10597,6 +10623,7 @@
       "Microsoft.EntityFrameworkCore.Tools.DotNet >= 1.0.0-preview3-final",
       "Microsoft.Extensions.Configuration.Json >= 1.0.0",
       "Microsoft.Extensions.Logging.Console >= 1.0.0",
+      "Microsoft.Extensions.Logging.Debug >= 1.0.2",
       "Microsoft.NETCore.App >= 1.0.1",
       "System.Linq >= 4.3.0"
     ],

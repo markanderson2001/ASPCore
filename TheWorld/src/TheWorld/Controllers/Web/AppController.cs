@@ -9,40 +9,66 @@ using TheWorld.ViewModels;
 using TheWorld.services;
 using Microsoft.Extensions.Configuration;
 using TheWorld.Models;
+using Microsoft.Extensions.Logging;
 
 namespace TheWorld.Controllers.Web
 {
     public class AppController : Controller //all controlers need to be public so they can be disovered
-                                            //Controller class should be base for everyh controller in your MVC 6 project
+                                            //Controller class should be base for every controller in your MVC 6 project
                                             //on error add controler hold down Control period or use helper ...
                                             // .. we going to add it in project.jason
 
-                                            // here we will specify model for a page or checking authorization
+    // here we will specify model for a page or checking authorization
     {
         private IMailService _mailService;
         private IConfigurationRoot _config;
-        private WorldContext _context;
+        private IWorldRepository _repository;
+        private ILogger<AppController> _logger;
+        
+        // private WorldContext _context; - have repository pattern instead
 
         //change controller to support debuging new constructor rather than; new debugMailService()
-        public AppController(IMailService mailService, IConfigurationRoot config, WorldContext context)//instantiates "Appcontroler - pass an implementation of this interface. Add EF WorldContext
+        //public AppController(IMailService mailService, IConfigurationRoot config, WorldContext context)//instantiates "Appcontroler - pass an implementation of this interface. Add EF WorldContext
+        public AppController(IMailService mailService,
+            IConfigurationRoot config,
+            IWorldRepository repository,
+            ILogger<AppController> logger) //namespace of ms.ext.logg than add in class level)//replace the injection of the context with the injection of the iWorldrepository
+
+            //MEMBERS
         {
             _mailService = mailService;
             _config = config;
-            _context = context;
-        } 
+            // _context = context;
+            _repository = repository;
+            _logger = logger; //allows us to look and trap errors --so try catch incase something bad happens in query IActionresult
+        }
 
+        //METHOD
         public IActionResult Index()        //will return simple HTMl view  (no parameters)
         {
-            var data = _context.Trips.ToList();//will get list of all the trips as those trip classes thus var data; return a list of trip objects
-                                               //now we can take this data and pass it into the view:
-                                               // No datbase provider has been configured for this DBContext
-            return View(data);
+            //  var data = _context.Trips.ToList();//will get list of all the trips as those trip classes thus var data; return a list of trip objects
+            //now we can take this data and pass it into the view:
+            // No datbase provider has been configured for this DBContext
+            try
+            {
 
-            //return View();              //will tell it to find, render taht view and return to useri
-                                        // no we need the actual view - called a Razor page that represents this view
-                                        // do this by creating a new set of directories - add new file theWorld/Views
+                var data = _repository.GetAllTrips();
+                return View(data);
+
+
+                //return View();             //will tell it to find, render that view and return to user
+                // no we need the actual view - called a Razor page that represents this view
+                // do this by creating a new set of directories - add new file theWorld/Views
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get trips in Index page: {ex.Message}");
+                return Redirect("/error"); //or some operation if this fails
+                    //point is logging the error, dont neccesary show to end user
+                    //better than 500 error, catch them and do something about them
+            }
         }
-        //Add new methods 
+        //NEW METHODS
         //method to allow by default to fo a GET on app/contact
         public IActionResult Contact() //For a contact page & here also return a view as well
         {

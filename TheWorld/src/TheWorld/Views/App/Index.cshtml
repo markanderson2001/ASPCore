@@ -1,5 +1,10 @@
 ﻿<!--Copy all/[paste] from index.html-->
-<!--Razor supports a number of C# constructs - on add key se is the  and braces to have arbitrary C# content in ther e-->
+<!--Razor supports a number of C# constructs - on add key se is the  and braces to have arbitrary C# content in there-->
+<!-- use model for IEnumerable trip / part ef - model becomes collection that was passed in-->
+<!--show raw data before *aModel* ienum, in the map below add var item in model-->
+
+@model IEnumerable<TheWorld.Models.Trip>
+
 @{ 
     ViewBag.Title = "Home Page";
     //Layout = "_Layout"; //or INstead of doing this on every page add new item and create _viewstart.cshtml
@@ -26,6 +31,14 @@
     </div>
     <div class="col-md-6 col-xs-1 col-xs-4">
         <h2>The Map</h2>
+        <!--Show data-->
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>@item.Name :@item.DateCreated.ToString("d")</li><!--"d" to short string so we can see it-->
+            }
+        </ul>
+
     </div>
 </div>
 

@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +13,7 @@ namespace TheWorld.Models
     {
         private IConfigurationRoot _config;
 
-        public WorldContext(IConfigurationRoot config,DbContextOptions options)
+        public WorldContext(IConfigurationRoot config, DbContextOptions options)
             :base(options)//from startup - dependency injection layer will do that for us
         {
             _config = config;//store at class level so we can use it

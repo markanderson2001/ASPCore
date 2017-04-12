@@ -11,6 +11,7 @@ using TheWorld.services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.EnvironmentVariables;
 using TheWorld.Models;
+using Newtonsoft.Json.Serialization;
 
 namespace TheWorld
   
@@ -63,10 +64,21 @@ namespace TheWorld
             //add register; dbcontect - EF  -registerss not only EF but also our specific context. ouContext now injectible in different parts of the project
             services.AddDbContext<WorldContext>();
 
+            services.AddScoped<IWorldRepository,WorldRepository>();
+            //            services.AddScoped<IWorldRepository,MockWorldRepository>();
+
+            //add exception and Logging - will add interfaces and servies required for logging
+            services.AddLogging();
+
+
             //add to read in sample data
             services.AddTransient<WorldContextSeedData>(); //also add to configure the last theng is to call it (bottom of paghe
 
-            services.AddMvc();// we are required to use deppendency injection - here we register all the MVC services
+            services.AddMvc()// we are required to use deppendency injection - here we register all the MVC services
+                .AddJsonOptions(config =>
+                {
+                    config.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                });
 
             
         }
@@ -77,25 +89,37 @@ namespace TheWorld
 
         //We are defining who is handling what and in what order
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            ILoggerFactory loggerFactory, WorldContextSeedData seeder)// to set up what to do when requests come in
+        public void Configure(IApplicationBuilder app, 
+            IHostingEnvironment env,
+            WorldContextSeedData seeder,            
+            ILoggerFactory factory)// to set up what to do when requests come in
         {
             //order is important as it will hand it to each middleware in its order!! previously relied on global.asax files (asp.net)
 
             //            app.UseDefaultFiles();// needs to be first (before use static files-then automaticaly look for default files such as index.html, index.htm and others
             //removed after we added Index/cshtml
+
             //#if DEBUG
             //now that we added Ihosting environment as parameter of Configure, we can code for same
             ///if (env.IsDevelopment()) rather use
             if (env.IsEnvironment("Development"))// knows its development .. inside of project - properties (alt enter) (under debug)
                                                  // here we set if staging or production or testing or QA etc. simple string comparison (is cross platform)
+
+
             {
                 app.UseDeveloperExceptionPage();//in its own package - now on exception we can see stack, Query, Cookies or Headers
+                //add logger a dtell it the minimal level we want to log
+                factory.AddDebug(LogLevel.Information);
             }
-//#endif
-    
+            else //non development
+            {
+                factory.AddDebug(LogLevel.Error); //Errors not as verbose as information
+            }
+            //#endif
+
             app.UseStaticFiles();//either autocreate or add onto - and see added file in project.jason
 
+            //BUILD DEFAULT ROUTE
             app.UseMvc(config =>  // a way to tell it this controler - create a map to specify route - patern of a url 
             {
                 config.MapRoute(

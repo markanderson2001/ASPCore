@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.0/",
-    "signature": "34ebc33e0b74d33eb214d6abf2a07f733f511572"
+    "signature": "c92420ab38e9e540e54859e8edfe0ee81f1edb26"
   },
   "compilationOptions": {
     "defines": [
@@ -33,8 +33,7 @@
           "Microsoft.EntityFrameworkCore.Tools.DotNet": "1.0.0-preview3-final",
           "Microsoft.EntityFrameworkCore.Tools": "1.1.0",
           "System.Linq": "4.3.0",
-          "System.Linq.Parallel": "4.0.1",
-          "System.Interactive.Async": "3.0.0"
+          "Microsoft.Extensions.Logging.Debug": "1.0.2"
         },
         "compile": {
           "TheWorld.dll": {}
@@ -960,6 +959,15 @@
         },
         "compile": {
           "lib/netstandard1.3/Microsoft.Extensions.Logging.Console.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Logging.Debug/1.0.2": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "1.1.1",
+          "System.Diagnostics.Debug": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.Extensions.Logging.Debug.dll": {}
         }
       },
       "Microsoft.Extensions.ObjectPool/1.1.0": {
@@ -2900,8 +2908,7 @@
           "Microsoft.EntityFrameworkCore.Tools.DotNet": "1.0.0-preview3-final",
           "Microsoft.EntityFrameworkCore.Tools": "1.1.0",
           "System.Linq": "4.3.0",
-          "System.Linq.Parallel": "4.0.1",
-          "System.Interactive.Async": "3.0.0"
+          "Microsoft.Extensions.Logging.Debug": "1.0.2"
         },
         "runtime": {
           "TheWorld.dll": {}
@@ -3830,6 +3837,15 @@
         },
         "runtime": {
           "lib/netstandard1.3/Microsoft.Extensions.Logging.Console.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Logging.Debug/1.0.2": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "1.1.1",
+          "System.Diagnostics.Debug": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.Extensions.Logging.Debug.dll": {}
         }
       },
       "Microsoft.Extensions.ObjectPool/1.1.0": {
@@ -6043,6 +6059,11 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-GN4gFFONP12KbFEG9rNFpXuz6D2Tybcm8+c1wilaQ1eSl9zVX0gVRrKw/YRwxdwbM3eK7nWfRRqJaQPzOjtLnA=="
+    },
+    "Microsoft.Extensions.Logging.Debug/1.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dzNlLuTGxMT28k6pPjcHieleXlIfakDwc22wpTv5I6G58E0ecX6zpJTYoqX+RUCZcuUKVQlDEbefX7k6dmewIw=="
     },
     "Microsoft.Extensions.ObjectPool/1.1.0": {
       "type": "package",

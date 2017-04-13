@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.EnvironmentVariables;
 using TheWorld.Models;
 using Newtonsoft.Json.Serialization;
+using AutoMapper;
+using TheWorld.ViewModels;
 
 namespace TheWorld
   
@@ -94,6 +96,12 @@ namespace TheWorld
             WorldContextSeedData seeder,            
             ILoggerFactory factory)// to set up what to do when requests come in
         {
+            //call a method on Mapper (conver model to save data)
+            //takes a lambda - we'll use a multiline lambda (may have few things to initialize to do setting up of these maps
+            Mapper.Initialize(config =>     
+            {
+                config.CreateMap<TripViewModel, Trip>().ReverseMap();//with generic arguments to & from - and they will map all the field names - source to destination
+            });  
             //order is important as it will hand it to each middleware in its order!! previously relied on global.asax files (asp.net)
 
             //            app.UseDefaultFiles();// needs to be first (before use static files-then automaticaly look for default files such as index.html, index.htm and others

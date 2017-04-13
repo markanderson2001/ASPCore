@@ -21,7 +21,8 @@
     "Microsoft.EntityFrameworkCore.Tools.DotNet": "1.0.0-preview3-final",
     "Microsoft.EntityFrameworkCore.Tools": "1.1.0",
     "System.Linq": "4.3.0",
-    "Microsoft.Extensions.Logging.Debug": "1.0.2"
+    "Microsoft.Extensions.Logging.Debug": "1.0.2",
+    "AutoMapper": "6.0.2"
   },
 
   "tools": {

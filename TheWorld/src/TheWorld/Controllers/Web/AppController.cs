@@ -84,6 +84,7 @@ namespace TheWorld.Controllers.Web
                //ModelState.AddModelError("", "We don't support AOL Email Addresses"); //model error or
                 ModelState.AddModelError("EMail", "We don't support AOL Email Addresses"); //property error
             }
+
             if (ModelState.IsValid)
             {
                     //Test agains model attributes on server

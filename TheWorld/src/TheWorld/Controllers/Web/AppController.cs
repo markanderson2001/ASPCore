@@ -10,6 +10,7 @@ using TheWorld.services;
 using Microsoft.Extensions.Configuration;
 using TheWorld.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TheWorld.Controllers.Web
 {
@@ -51,11 +52,8 @@ namespace TheWorld.Controllers.Web
             // No datbase provider has been configured for this DBContext
             try
             {
-
                 var data = _repository.GetAllTrips();
-                return View(data);
-
-
+                return View(); //remove data as it is hadled by after authentication
                 //return View();             //will tell it to find, render that view and return to user
                 // no we need the actual view - called a Razor page that represents this view
                 // do this by creating a new set of directories - add new file theWorld/Views
@@ -67,8 +65,18 @@ namespace TheWorld.Controllers.Web
                     //point is logging the error, dont neccesary show to end user
                     //better than 500 error, catch them and do something about them
             }
+            
         }
-        //NEW METHODS
+             //A place where Authenticated users can go to look at their trips - attribute
+             [Authorize]///gate for only authed users
+        public IActionResult Trips ()
+        {
+            //copy what we do in the index page
+            var data = _repository.GetAllTrips();
+            return View(data);
+        }
+
+            //NEW METHODS
         //method to allow by default to fo a GET on app/contact
         public IActionResult Contact() //For a contact page & here also return a view as well
         {

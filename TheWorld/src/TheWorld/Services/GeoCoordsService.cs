@@ -69,7 +69,7 @@ namespace TheWorld.Services
                     result.Latitude = (double)coords[0];
                     result.Longitude = (double)coords[1];
                     result.Success = true;
-                    result.Message = "Suiccess";
+                    result.Message = "Success";
                 }
             }
             return result;            

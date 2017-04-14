@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,25 +10,41 @@ namespace TheWorld.Models
     public class WorldContextSeedData
     {
         private WorldContext _context;
+        private UserManager<WorldUser> _userManager;
 
-        public WorldContextSeedData(WorldContext context)//CONSTRUCTOR WITH WorldContext object  -to add new seed data to it
+        public WorldContextSeedData(WorldContext context,UserManager<WorldUser> userManager)//CONSTRUCTOR WITH WorldContext object  -to add new seed data to it
         {
             _context = context; //save in class level
+            _userManager = userManager;
         }
 
-        public object Trips { get; internal set; }
-
+        //  public object Trips { get; internal set; }
+        
         //create method
         public async Task EnsureSeedData()
         {
-            if (!_context.Trips.Any())  //any boolean if any objects in it, could also put a lambda here. Add the ! so if there arent any trips then;
+            //Sample user population
+            if (await _userManager.FindByEmailAsync("mark.anderson@theworld.com") == null)
             {
+                //user does not exist yet so add new world user
+                var user = new WorldUser()
+                {
+                    UserName = "markanderson",
+                    Email = "mark.anderson@theworld.com"
+                };
+                //use usermanager to create the new user
+                await _userManager.CreateAsync(user, "Pa$$w0rd!");// PasswordHasher has to have certain char, length, complexity..
+            }
+                if (!_context.Trips.Any())  //any boolean if any objects in it, could also put a lambda here. Add the ! so if there arent any trips then;
+            {
+                
+               
                 //if no trips we'll ad some sample data
                 var usTrip = new Trip()
                 {
                     DateCreated = DateTime.Now,
                     Name = "US Trip",
-                    Username = "", //TODO Add Username (once we have authentication working)
+                    Username = "markanderson", //TODO Add Username (once we have authentication working)
                     Stops = new List<Stop>()
                     {
                        new Stop() {  Name = "Atlanta, GA", Arrival = new DateTime(2014, 6, 4), Latitude = 33.748995, Longitude = -84.387982, Order = 0 },

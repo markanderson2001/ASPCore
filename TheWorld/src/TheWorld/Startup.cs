@@ -15,6 +15,7 @@ using Newtonsoft.Json.Serialization;
 using AutoMapper;
 using TheWorld.ViewModels;
 using TheWorld.Services;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace TheWorld
   
@@ -24,6 +25,8 @@ namespace TheWorld
     {
         private IHostingEnvironment _env;
         private IConfigurationRoot _config;
+
+        public IServiceCollection AddEntityFrameworkStores { get; private set; }
 
         //Insead of #If Debug we can use the hosted environment
         public Startup(IHostingEnvironment env)
@@ -42,6 +45,28 @@ namespace TheWorld
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddMvc()// we are required to use deppendency injection - here we register all the MVC services
+               .AddJsonOptions(config =>
+               {
+                   config.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+               });
+
+            //add id
+            services.AddIdentity<WorldUser, IdentityRole>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+                config.Password.RequiredLength = 8;//set password requirements
+                config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";//look at cookeis object
+            })
+            .AddEntityFrameworkStores<WorldContext>();
+
+            
+
+
+            //add exception and Logging - will add interfaces and servies required for logging
+            services.AddLogging();
+
             services.AddSingleton(_config);
 
             //from contact page - 
@@ -72,18 +97,13 @@ namespace TheWorld
 
             //add as transient object as it does not have any of its own state
             services.AddTransient<GeoCoordsService>();
-            //add exception and Logging - will add interfaces and servies required for logging
-            services.AddLogging();
+           
 
 
             //add to read in sample data
             services.AddTransient<WorldContextSeedData>(); //also add to configure the last theng is to call it (bottom of paghe
 
-            services.AddMvc()// we are required to use deppendency injection - here we register all the MVC services
-                .AddJsonOptions(config =>
-                {
-                    config.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                });
+           
 
             
         }
@@ -99,6 +119,11 @@ namespace TheWorld
             WorldContextSeedData seeder,            
             ILoggerFactory factory)// to set up what to do when requests come in
         {
+
+
+            app.UseStaticFiles();//either autocreate or add onto - and see added file in project.jason
+            //Tell app to use identity
+            app.UseIdentity();
             //call a method on Mapper (conver model to save data)
             //takes a lambda - we'll use a multiline lambda (may have few things to initialize to do setting up of these maps
             Mapper.Initialize(config =>     
@@ -128,8 +153,6 @@ namespace TheWorld
                 factory.AddDebug(LogLevel.Error); //Errors not as verbose as information
             }
             //#endif
-
-            app.UseStaticFiles();//either autocreate or add onto - and see added file in project.jason
 
             //BUILD DEFAULT ROUTE
             app.UseMvc(config =>  // a way to tell it this controler - create a map to specify route - patern of a url 

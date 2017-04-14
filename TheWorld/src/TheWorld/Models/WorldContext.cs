@@ -1,14 +1,20 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
+//This is the class that represents the different types of data that we are storing in the database
+
 namespace TheWorld.Models
 {
-    public class WorldContext : DbContext  //add the package Ms.entityframeworkCore
+    //public class WorldContext : DbContext  //add the package Ms.entityframeworkCore //
+        public class WorldContext : IdentityDbContext<WorldUser>  ////added identity,
+                                                       // takes generic argument that represents the entity tahta its going to store our user info;
+                                                       //like Username and password and email...
 
     {
         private IConfigurationRoot _config;

@@ -20,6 +20,6 @@ else
   else
   {
     var coords = resources[0]["geocodePoints"][0]["coordinates"];
-
+	var url = $"http://dev.virtualearth.net/REST/v1/Locations?q={encodedName}&key={apiKey}";//construct actual url -with two paramets - anme and apikey
   }
 }

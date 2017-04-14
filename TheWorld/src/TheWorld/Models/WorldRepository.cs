@@ -29,6 +29,18 @@ namespace TheWorld.Models
             _logger = logger;
         }
 
+        public void AddStop(string tripName, Stop newStop)
+        {
+            var trip = GetTripByName(tripName);
+            if (trip != null)
+            {
+                trip.Stops.Add(newStop); //FK being set then add as new object;
+                _context.Stops.Add(newStop); //ef ops
+
+            }
+            //throw new NotImplementedException();
+        }
+
         public void AddTrip(Trip trip)
         {
             _context.Add(trip); //this pushes it into the context as a new object ...save below

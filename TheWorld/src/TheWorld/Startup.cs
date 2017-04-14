@@ -14,6 +14,7 @@ using TheWorld.Models;
 using Newtonsoft.Json.Serialization;
 using AutoMapper;
 using TheWorld.ViewModels;
+using TheWorld.Services;
 
 namespace TheWorld
   
@@ -69,6 +70,8 @@ namespace TheWorld
             services.AddScoped<IWorldRepository,WorldRepository>();
             //            services.AddScoped<IWorldRepository,MockWorldRepository>();
 
+            //add as transient object as it does not have any of its own state
+            services.AddTransient<GeoCoordsService>();
             //add exception and Logging - will add interfaces and servies required for logging
             services.AddLogging();
 

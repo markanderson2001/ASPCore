@@ -7,25 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TheWorld.Models;
+using TheWorld.Services;
 using TheWorld.ViewModels;
 
 namespace TheWorld.Controllers.Api
 {
 
+    //set troute attruibute
     [Route("/api/trips/{tripName}/stops")]
         // a way to interact with stops on their own
     public class StopsController: Controller
     {
+        private GeoCoordsService _coordsService;
         private ILogger<StopsController> _logger;
         private IWorldRepository _repository;
 
         //constructor
         //because of style of controller we need Iworldrep. bring in Models namespace, and logging info and namespace
-        public StopsController(IWorldRepository repository, ILogger<StopsController> logger)//because of style of controller we need Iworldrep. bring in Models namespace
+        public StopsController(IWorldRepository repository,
+            ILogger<StopsController> logger,
+            GeoCoordsService coordsService)
         {
             //assign as local vars and use ra=efacoring to add as members
             _repository = repository;
             _logger = logger;
+            _coordsService = coordsService;
         }
         //create  1st action - return stops for a specific trip - in the context of a trip
         //the other controller is responsible for trip route, thus base would be api trips , the trip name athen the stops
@@ -48,5 +54,47 @@ namespace TheWorld.Controllers.Api
             //return never reached;
             return BadRequest("Failed to Get Stops");
         }
+
+        [HttpPost("")]//empty string for route because we inherit it from Controllers attribute
+        public async Task<IActionResult> Post(string tripName, [FromBody]StopViewModel vm)
+        {
+            try
+            {
+                //check if VM is valid
+                if (ModelState.IsValid)
+                {
+                    var newStop = Mapper.Map<Stop>(vm);
+                    //Look up the Geo CodesLook up the Longitude and Latitude of new stop
+                    var result = await _coordsService.GetCoordsAsync(newStop.Name);
+                    if (!result.Success)
+                    {
+                        _logger.LogError(result.Message);
+                    }
+                    else  
+                    {
+                        newStop.Latitude = result.Latitude;
+                        newStop.Longitude = result.Longitude;
+
+                        //Save to dB
+                        _repository.AddStop(tripName, newStop);//ad addstop to repository  -sowe use refactoring to generate the new mehod (iworldrepos)
+                                                               //added with refaccotring in iworldrep..void AddStop(string tripName, Stop newStop);  // implement in actual repository
+                                                               //worldRepository -add method ef
+                        if (await _repository.SaveChangesAsync())
+                        {
+                            return Created($"/api/trips/{tripName}/stops/{newStop.Name}",
+                                Mapper.Map<StopViewModel>(newStop));//use mapper to convert back to a stopviewmodel
+                        }
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Failed to save new Stop: {0}",ex);
+            }
+            return BadRequest("Failed to Post Stops");
+        }
+
     }
 }

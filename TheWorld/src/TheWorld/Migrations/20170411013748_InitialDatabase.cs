@@ -31,8 +31,8 @@ namespace TheWorld.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Arrival = table.Column<DateTime>(nullable: false),
-                    Latitude = table.Column<string>(nullable: true),
-                    Longitude = table.Column<string>(nullable: true),
+                    Latitude = table.Column<double>(nullable: true),
+                    Longitude = table.Column<double>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Order = table.Column<int>(nullable: false),
                     TripId = table.Column<int>(nullable: true)

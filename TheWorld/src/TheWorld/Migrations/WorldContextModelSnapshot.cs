@@ -23,9 +23,9 @@ namespace TheWorld.Migrations
 
                     b.Property<DateTime>("Arrival");
 
-                    b.Property<string>("Latitude");
+                    b.Property<double>("Latitude");
 
-                    b.Property<string>("Longitude");
+                    b.Property<double>("Longitude");
 
                     b.Property<string>("Name");
 

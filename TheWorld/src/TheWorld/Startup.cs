@@ -101,6 +101,7 @@ namespace TheWorld
             Mapper.Initialize(config =>     
             {
                 config.CreateMap<TripViewModel, Trip>().ReverseMap();//with generic arguments to & from - and they will map all the field names - source to destination
+                config.CreateMap<StopViewModel, Stop>().ReverseMap(); //reverse for bi-directional mapping
             });  
             //order is important as it will hand it to each middleware in its order!! previously relied on global.asax files (asp.net)
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,13 @@ namespace TheWorld.Models
             _context = context;
             _logger = logger;
         }
+
+        public void AddTrip(Trip trip)
+        {
+            _context.Add(trip); //this pushes it into the context as a new object ...save below
+                                // throw new NotImplementedException();
+        }
+
         //to query all the trips -  new method to return collection of all trips (with no parameters)
         public IEnumerable<Trip> GetAllTrips()
 
@@ -35,6 +43,22 @@ namespace TheWorld.Models
             //use context to generate the query (to mock - use refractoring
             return _context.Trips.ToList();
         }
-        
+
+        public Trip GetTripByName(string tripName)
+        {
+
+            return _context.Trips
+                .Include(t => t.Stops)
+                .Where(t => t.Name == tripName)
+                .FirstOrDefault();//use lamba expression, tofigure which trip to return, add inlcude here in order to get the stops (add ef namespace) to eager load that collection
+                                    // allow to add collection of stops when returned
+            //throw new NotImplementedException();
+        }
+
+        public async Task<bool> SaveChangesAsync()//put in interface
+        {
+            return (await _context.SaveChangesAsync()) > 0; //return a Boolean  (save changes and savechangesAsync returns an integer with # of rows effected)
+            //throw new NotImplementedException();
+        }
     }
 }

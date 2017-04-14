@@ -9,7 +9,7 @@ namespace TheWorld.ViewModels
 {
     public class TripViewModel
     {
-        //ATTRIBUTES;
+        //ATTRIBUTES - Validation;
         [Required] //bring in using System.ComponentModel.DataAnnotations;
         [StringLength(100,MinimumLength =5)]
         //PROPERTIES

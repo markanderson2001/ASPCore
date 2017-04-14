@@ -16,7 +16,7 @@ namespace TheWorld.ViewModels
         //3nd validation - [Stringlength] max and min
         // ** we want to inform user of validation -add new library for validation in bower.json 
 
-        //ATTRIBUTES;
+        //ATTRIBUTES - Validation;
         [Required] 
         //PROPERTY;
         public string Name { get; set; }

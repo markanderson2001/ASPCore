@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TheWorld.Controllers.Api;
 using TheWorld.Models;
 using TheWorld.ViewModels;
 
@@ -13,12 +15,16 @@ namespace TheWorld.Controllers.Api
     [Route("api/trips")] //put as base route for entire class
     public class TripControllers : Controller
     {
+        
+        private ILogger<TripControllers> _logger; //Logger object know what class its being logged from
         private IWorldRepository _repository;
 
         //add construstor
-        public TripControllers(IWorldRepository repository)
+        public TripControllers(IWorldRepository repository, ILogger<TripControllers> logger)//add generic argument  - tripcontroller as a logger
         {
+            //MEMBERS
             _repository = repository;
+            _logger = logger;
         }
         //Drive it from Controller (as we did when we built our controllers that are going to return views)
         // this case we are going to return data as an API with MVC6
@@ -46,8 +52,10 @@ namespace TheWorld.Controllers.Api
             }
             catch(Exception ex)
             {
-                //TODO Logging error
-                return BadRequest("Error Occured");
+                //Logging error
+                _logger.LogError($"Failed to get All Trips: {ex}");//choose level and add exception inside of log
+
+                return BadRequest("Error Occured" + ex);
             }
         }
 
@@ -55,7 +63,7 @@ namespace TheWorld.Controllers.Api
                                 // to try call this method itself. passing theTripObject (date,Id,Name,Stops)
                                 // we have tio tell it where we are getting the data in this post ([FromBody] an attribute we can put directly on the body
                                 // . .saying (map) modelBind is correct terms Formbody & Trip to match up names with property of the Json with names of property of the object
-        public IActionResult Post([FromBody] TripViewModel theTrip) //add TripViewModel in ViewModels
+        public async Task<IActionResult> Post([FromBody] TripViewModel theTrip) //add TripViewModel in ViewModels // added async
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +72,23 @@ namespace TheWorld.Controllers.Api
                                                          // thus we return newTrip and pass in source  so we send back a result of what we created (assuming valid)
                                                          //this assumes maps have been created between the two types: from Trip to TripViewModel essentially  ..
                                                          //.. to do that we do it in startup ( can do anywhere ..we'll do it in configure
-                return Created($"api/trips/{theTrip.Name}", Mapper.Map<TripViewModel>(newTrip));//return newtrip - set both ways in startup too (use reversemap)
+
+                //Add trip to Database
+                _repository.AddTrip(newTrip); //Support for "addtrip" in reposirory 
+
+                if (await _repository.SaveChangesAsync())
+                //if succeeded save
+                {
+                    return Created($"api/trips/{theTrip.Name}", Mapper.Map<TripViewModel>(newTrip));//return newtrip - set both ways in startup too (use reversemap)
+                }
+                //if Not saved
+                //else
+                //{
+                //    return BadRequest("Failed to Save Changes to dB");
+                //    //return BadRequest(ModelState); //lets return the actual models state in the request as feedback
+                //    // Not suggested in public API
+                //}
+
                 //return Created($"api/trips/{theTrip.Name}",newTrip);
                 //////conventionally this method hard as we have to copy code over and over again - we'll use AUtoMapper
                 ////var newTrip = new Trip()
@@ -77,9 +101,9 @@ namespace TheWorld.Controllers.Api
                 //return Created($"api/trips/{theTrip.Name}", theTrip);
             }
             //if invalid we return badrequest;
+            return BadRequest("Failed to Save Changes to dB");
            //return BadRequest("Bad Data");
-            return BadRequest(ModelState); //lets return the actual models state in the request as feedback
-                                            // Not suggested in public API
+
         }
     }
 }

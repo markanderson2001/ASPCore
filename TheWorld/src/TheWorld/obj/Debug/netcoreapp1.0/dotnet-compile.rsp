@@ -206,6 +206,7 @@
 --resource:"C:\Shared\GitHub\Project Files\ASPCore\TheWorld\src\TheWorld\obj\Debug\netcoreapp1.0\TheWorlddotnet-compile.deps.json",TheWorld.deps.json
 C:\Shared\GitHub\Project Files\ASPCore\TheWorld\src\TheWorld\Program.cs
 C:\Shared\GitHub\Project Files\ASPCore\TheWorld\src\TheWorld\Startup.cs
+C:\Shared\GitHub\Project Files\ASPCore\TheWorld\src\TheWorld\Controllers\AuthController.cs
 C:\Shared\GitHub\Project Files\ASPCore\TheWorld\src\TheWorld\Controllers\Api\StopsController.cs
 C:\Shared\GitHub\Project Files\ASPCore\TheWorld\src\TheWorld\Controllers\Api\TripControllers.cs
 C:\Shared\GitHub\Project Files\ASPCore\TheWorld\src\TheWorld\Controllers\Web\AppController.cs

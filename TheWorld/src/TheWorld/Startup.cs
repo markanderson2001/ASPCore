@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.EnvironmentVariables;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,10 +45,41 @@ namespace TheWorld
         }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
+
+
+
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton(_config);
+            services.AddMvc(config =>
+            {
+                if (_env.IsProduction())
+                {
+                    config.Filters.Add(new RequireHttpsAttribute()); //to enforce https - for production only (any website with credential)
+                    //*************************Ensure to use ASPNETCORE_ENVIRONMENT = Production**************************
+                }
+            })
 
+             .AddJsonOptions(config =>
+             {
+                 config.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+             });
+
+            //add id
+            services.AddIdentity<WorldUser, IdentityRole>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+                config.Password.RequiredLength = 8;//set password requirements
+                config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";//look at cookeis object              
+            })
+
+
+            .AddEntityFrameworkStores<WorldContext>();
+ 
+
+
+            services.AddSingleton(_config);
+            
             //#if Debug
             if (_env.IsEnvironment("Development") || _env.IsEnvironment("Testing"))
                 services.AddScoped<IMailService, DebugMailService>();
@@ -59,17 +91,8 @@ namespace TheWorld
 
             services.AddDbContext<WorldContext>();
 
-            //add id
-            services.AddIdentity<WorldUser, IdentityRole>(config =>
-            {
-                config.User.RequireUniqueEmail = true;
-                config.Password.RequiredLength = 8;//set password requirements
-                config.Cookies.ApplicationCookie.LoginPath = "/auth/login";//look at cookeis object
-                config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents();
 
-            })
-
-            .AddEntityFrameworkStores<WorldContext>();
+           
 
             services.AddScoped<IWorldRepository, WorldRepository>();
 
@@ -86,12 +109,8 @@ namespace TheWorld
             services.AddLogging();
 
 
-            services.AddMvc()// we are required to use deppendency injection - here we register all the MVC services
-               .AddJsonOptions(config =>
-               {
-                   config.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-               });
-
+            //services.AddMvc()// we are required to use deppendency injection - here we register all the MVC services
+              
 
 
         }
@@ -140,7 +159,9 @@ namespace TheWorld
                 config.CreateMap<StopViewModel, Stop>().ReverseMap(); //reverse for bi-directional mapping
             });
             //order is important as it will hand it to each middleware in its order!! previously relied on global.asax files (asp.net)
-
+            app.UseStaticFiles();//either autocreate or add onto - and see added file in project.jason
+            //Tell app to use identity
+            app.UseIdentity();
 
             //            app.UseDefaultFiles();// needs to be first (before use static files-then automaticaly look for default files such as index.html, index.htm and others
             //removed after we added Index/cshtml
@@ -163,9 +184,7 @@ namespace TheWorld
             }
             //#endif
 
-            app.UseStaticFiles();//either autocreate or add onto - and see added file in project.jason
-            //Tell app to use identity
-            app.UseIdentity();
+           
             //BUILD DEFAULT ROUTE
             app.UseMvc(config =>  // a way to tell it this controler - create a map to specify route - patern of a url 
             {

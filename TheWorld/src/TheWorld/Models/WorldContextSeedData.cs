@@ -12,7 +12,7 @@ namespace TheWorld.Models
         private WorldContext _context;
         private UserManager<WorldUser> _userManager;
 
-        public WorldContextSeedData(WorldContext context,UserManager<WorldUser> userManager)//CONSTRUCTOR WITH WorldContext object  -to add new seed data to it
+        public WorldContextSeedData(WorldContext context, UserManager<WorldUser> userManager)//CONSTRUCTOR WITH WorldContext object  -to add new seed data to it
         {
             _context = context; //save in class level
             _userManager = userManager;
@@ -35,7 +35,7 @@ namespace TheWorld.Models
                     Email = "mark.anderson@theworld.com"
                 };
                 //use usermanager to create the new user
-                await _userManager.CreateAsync(user, "Pa$$w0rd!");// PasswordHasher has to have certain char, length, complexity..
+                await _userManager.CreateAsync(user, "P@$$w0rd!");// PasswordHasher has to have certain char, length, complexity..
             }
                 if (!_context.Trips.Any())  //any boolean if any objects in it, could also put a lambda here. Add the ! so if there arent any trips then;
             {

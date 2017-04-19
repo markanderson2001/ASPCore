@@ -50,34 +50,42 @@ namespace TheWorld.Controllers.Web
             //  var data = _context.Trips.ToList();//will get list of all the trips as those trip classes thus var data; return a list of trip objects
             //now we can take this data and pass it into the view:
             // No datbase provider has been configured for this DBContext
-            try
+         //   try
             {
              //   var data = _repository.GetAllTrips();
-                return View(); //remove data as it is hadled by after authentication
+          return View(); //remove data as it is hadled by after authentication
                 //return View();             //will tell it to find, render that view and return to user
                 // no we need the actual view - called a Razor page that represents this view
                 // do this by creating a new set of directories - add new file theWorld/Views
             }
+            //catch (Exception ex)
+            //{
+            //    _logger.LogError($"Failed to get trips in Index page: {ex.Message}");
+            //    return Redirect("/error"); //or some operation if this fails
+            //        //point is logging the error, dont neccesary show to end user
+            //        //better than 500 error, catch them and do something about them
+
+            //}
+            
+        }
+        //A place where Authenticated users can go to look at their trips - attribute ///gate for only authed users
+        [Authorize]
+        public IActionResult Trips()
+        {
+            try
+            {
+                //copy what we do in the index page
+                var data = _repository.GetAllTrips();
+                return View(data);
+            }
             catch (Exception ex)
             {
                 _logger.LogError($"Failed to get trips in Index page: {ex.Message}");
-                return Redirect("/error"); //or some operation if this fails
-                    //point is logging the error, dont neccesary show to end user
-                    //better than 500 error, catch them and do something about them
-
+                return Redirect("/error");
             }
-            
-        }
-             //A place where Authenticated users can go to look at their trips - attribute
-             [Authorize]///gate for only authed users
-        public IActionResult Trips ()
-        {
-            //copy what we do in the index page
-            var trips = _repository.GetAllTrips();
-            return View(trips);
         }
 
-            //NEW METHODS
+        //NEW METHODS
         //method to allow by default to fo a GET on app/contact
         public IActionResult Contact() //For a contact page & here also return a view as well
         {

@@ -51,6 +51,7 @@
             {
                 <li><a asp-action="Login" asp-controller="Auth">Login</a></li>
             }
+            
             <!--Tag helpers generates the href programmatically while being rendered on the server-->
             <!--ensure to enable tag helpers insert project; in Project.json add new dependency "Microsoft.AspNetCore.Mvc.TagHelpers": "1.1.2"-->
             <!--the wire them up, with another view; View Imports. In _Layout at top we can inViews now - "(a)inject -->
@@ -82,7 +83,7 @@
                 <!--<a>ADPC DevOps</a>-->
                 <!--<canvas put inert hfref,like this,  but instead lets use tag helpers-->
                     <!-- <a href="">ADPC DevOps</a>-->
-                <a asp-controller="App" asp-action="Index" class="navbar-brand">ADPC DevOps</a>
+                <a asp-controller="App" asp-action="Index" class="navbar-brand">Anderson DevOps</a>
                 <ul class="nav navbar-nav navbar-right">
                     <li><!--create link and destination (which is this page (thats what the '#" represents"))-->
                         <a href="#" class="btn btn-sm ntn btn-info">
@@ -110,6 +111,7 @@
             <!--update to h4, text center, fix to bottom of page with navbar-->
             <div class="navbar navbar-inverse navbar-fixed-bottom">
                 <h4 class="text-center text-info"> &copy; 2017 ADPC. markandersonweb.com</h4>
+                <!--<h3><img src="~/img/CloudDeliver.jpg" alt="headshot" class="headshot" /></h3>-->
 
             </div><!--FOOTER-->
         </div>

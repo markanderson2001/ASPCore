@@ -47,14 +47,14 @@ input[type=text], input[type=password], textarea {
 .headshot {
     max-width: 50px;
     border: 1px solid #222;
-    padding: 3px;
+    padding: 3px;    
 }
 
 /*for menu UL items:
 .menu {
     font-size: 12px;
 }
-
+    
     /*for menu UL items - get rid of bulleted objects*/
     .menu li {
         list-style-type: none;

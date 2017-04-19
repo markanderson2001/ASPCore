@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,7 +13,7 @@ using TheWorld.ViewModels;
 
 namespace TheWorld.Controllers.Api
 {
-
+    [Authorize]
     //set troute attruibute
     [Route("/api/trips/{tripName}/stops")]
         // a way to interact with stops on their own
@@ -36,12 +37,17 @@ namespace TheWorld.Controllers.Api
         //create  1st action - return stops for a specific trip - in the context of a trip
         //the other controller is responsible for trip route, thus base would be api trips , the trip name athen the stops
         ///lets do it at the class level - as we will need it for more than one action (get and post)
+        ///
+
         [HttpGet("")]
         public IActionResult Get(string tripName)
         {
             try
             {
-                var trip = _repository.GetTripByName(tripName); //method - implement ..add to repository (iworld interface and wordrep
+                var trip = _repository.GetUserTripByName(tripName, User.Identity.Name); //method - implement ..add to repository (iworld interface and wordrep
+
+                //** code to ensure we dont have duplicate names in future
+                //var trip = _repository.GetTripByName(tripName); //method - implement ..add to repository (iworld interface and wordrep
                 return Ok(Mapper.Map<IEnumerable<StopViewModel>>(trip.Stops.OrderBy(s => s.Order).ToList())); //add mapper
                 //return Ok(trip.Stops.OrderBy(s => s.Order).ToList());// Get in order they were created .
                                                 //note we want to return the stop class, but we want to return the viewmodel (like with trips)
@@ -76,7 +82,8 @@ namespace TheWorld.Controllers.Api
                         newStop.Longitude = result.Longitude;
 
                         //Save to dB
-                        _repository.AddStop(tripName, newStop);//ad addstop to repository  -sowe use refactoring to generate the new mehod (iworldrepos)
+                        _repository.AddStop(tripName, newStop,User.Identity.Name); //after auth/identity
+                        //_repository.AddStop(tripName, newStop);//ad addstop to repository  -sowe use refactoring to generate the new mehod (iworldrepos)
                                                                //added with refaccotring in iworldrep..void AddStop(string tripName, Stop newStop);  // implement in actual repository
                                                                //worldRepository -add method ef
                         if (await _repository.SaveChangesAsync())

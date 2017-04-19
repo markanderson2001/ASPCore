@@ -28,7 +28,9 @@ namespace TheWorld
         private IHostingEnvironment _env;
         private IConfigurationRoot _config;
 
-      //  public IServiceCollection AddEntityFrameworkStores { get; private set; }
+        public Func<object, Task> OnRedirectToLogin { get; private set; }
+
+        //  public IServiceCollection AddEntityFrameworkStores { get; private set; }
 
         //Insead of #If Debug we can use the hosted environment
         public Startup(IHostingEnvironment env)
@@ -71,6 +73,26 @@ namespace TheWorld
                 config.User.RequireUniqueEmail = true;
                 config.Password.RequiredLength = 8;//set password requirements
                 config.Cookies.ApplicationCookie.LoginPath = "/Auth/Login";//look at cookeis object              
+                config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()// set for API
+
+                //one of the events wewant to override is on redirecttologin
+                {
+                    OnRedirectToLogin = async ctx =>
+                    {
+                        
+                            if (ctx.Request.Path.StartsWithSegments("/api") &&
+                              ctx.Response.StatusCode == 200)//test if an API so does Uri start with"/" also chk if 200
+                            {
+                                ctx.Response.StatusCode = 401;//return code for api calls only
+                            }
+                            else
+                            {
+                                ctx.Response.Redirect(ctx.RedirectUri); //not an API
+                            }
+                            await Task.Yield();//allow lbmda to funct
+
+                        }
+                    };
             })
 
 

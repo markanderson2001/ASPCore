@@ -29,9 +29,9 @@ namespace TheWorld.Models
             _logger = logger;
         }
 
-        public void AddStop(string tripName, Stop newStop)
+        public void AddStop(string tripName, Stop newStop, string username)
         {
-            var trip = GetTripByName(tripName);
+            var trip = GetUserTripByName(tripName,username);
             if (trip != null)
             {
                 trip.Stops.Add(newStop); //FK being set then add as new object;
@@ -65,6 +65,24 @@ namespace TheWorld.Models
                 .FirstOrDefault();//use lamba expression, tofigure which trip to return, add inlcude here in order to get the stops (add ef namespace) to eager load that collection
                                     // allow to add collection of stops when returned
             //throw new NotImplementedException();
+        }
+
+        //essentialy same as getalltrips
+        public IEnumerable<Trip> GetTripsByUsername(string name)
+        {
+            return _context.Trips
+                .Include(t => t.Stops)
+                .Where(t => t.Username == name)
+                .ToList();
+
+        }
+
+        public Trip GetUserTripByName(string tripName, string username)
+        {
+            return _context.Trips
+                .Include(t => t.Stops)
+                .Where(t => t.Name == tripName && t.Username == username)
+                .FirstOrDefault();
         }
 
         public async Task<bool> SaveChangesAsync()//put in interface

@@ -14,7 +14,8 @@ using Microsoft.AspNetCore.Authorization;
 namespace TheWorld.Controllers.Api
 {
     [Route("api/trips")] //put as base route for entire class
-  //  [Authorize]
+    [Authorize]
+    //^^ addidentity to this API
     public class TripControllers : Controller
     {
         
@@ -36,14 +37,21 @@ namespace TheWorld.Controllers.Api
                                     //use postman chrome addon
                                     // when we make a request to the server, that matches this URL, this method will be called
                                     //akin to what we did in startup when we built our default route there
-                                        
+                                
+            
+                    
         public IActionResult Get()    //call Get there and say return Json and crete a new trip object
                                    //and set one of its values so we can get this data returning
                                    //and the name is going to be My Trip
         {
             try
             {    //Getting results by calling the repository
-                var results = _repository.GetAllTrips();
+                //var results = _repository.GetAllTrips(); validate user so only get trips by user
+                var results = _repository.GetTripsByUsername(this.User.Identity.Name); 
+                    //incl name which we use to query trips for that user   
+                    //f12 after generation and refator for use
+
+
 
                 // return Ok(Mapper.Map<TripViewModel>(results));// Mapper view model to results- but not returning a single trip - it is returing an inumerable trip
                 //So lets tell it to reurn a collection
@@ -65,6 +73,9 @@ namespace TheWorld.Controllers.Api
                                 // to try call this method itself. passing theTripObject (date,Id,Name,Stops)
                                 // we have tio tell it where we are getting the data in this post ([FromBody] an attribute we can put directly on the body
                                 // . .saying (map) modelBind is correct terms Formbody & Trip to match up names with property of the Json with names of property of the object
+
+
+
         public async Task<IActionResult> Post([FromBody] TripViewModel theTrip) //add TripViewModel in ViewModels // added async
         {
             if (ModelState.IsValid)
@@ -74,6 +85,9 @@ namespace TheWorld.Controllers.Api
                                                          // thus we return newTrip and pass in source  so we send back a result of what we created (assuming valid)
                                                          //this assumes maps have been created between the two types: from Trip to TripViewModel essentially  ..
                                                          //.. to do that we do it in startup ( can do anywhere ..we'll do it in configure
+
+                //add for user ony
+                newTrip.Username = User.Identity.Name;
 
                 //Add trip to Database
                 _repository.AddTrip(newTrip); //Support for "addtrip" in reposirory 

@@ -18,8 +18,10 @@ namespace TheWorld.Models
             _userManager = userManager;
         }
 
+        public Task EnsureSeedDataAsync { get; internal set; }
+
         //  public object Trips { get; internal set; }
-        
+
         //create method
         public async Task EnsureSeedData()
         {
@@ -63,7 +65,7 @@ namespace TheWorld.Models
                 {
                     DateCreated = DateTime.Now,
                     Name = "WorldTrip",
-                    Username = "", //TODO Add Username (once we have authentication working)
+                    Username = "markanderson", //TODO Add Username (once we have authentication working)
                     Stops = new List<Stop>()
                     {
             new Stop() { Order = 0, Latitude =  33.748995, Longitude =  -84.387982, Name = "Atlanta, Georgia", Arrival = DateTime.Parse("Jun 3, 2014") },

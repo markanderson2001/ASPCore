@@ -52,7 +52,7 @@ namespace TheWorld.Controllers.Web
             // No datbase provider has been configured for this DBContext
             try
             {
-                var data = _repository.GetAllTrips();
+             //   var data = _repository.GetAllTrips();
                 return View(); //remove data as it is hadled by after authentication
                 //return View();             //will tell it to find, render that view and return to user
                 // no we need the actual view - called a Razor page that represents this view
@@ -64,6 +64,7 @@ namespace TheWorld.Controllers.Web
                 return Redirect("/error"); //or some operation if this fails
                     //point is logging the error, dont neccesary show to end user
                     //better than 500 error, catch them and do something about them
+
             }
             
         }
@@ -72,8 +73,8 @@ namespace TheWorld.Controllers.Web
         public IActionResult Trips ()
         {
             //copy what we do in the index page
-            var data = _repository.GetAllTrips();
-            return View(data);
+            var trips = _repository.GetAllTrips();
+            return View(trips);
         }
 
             //NEW METHODS

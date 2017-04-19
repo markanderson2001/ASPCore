@@ -35,7 +35,8 @@
           "System.Linq": "4.3.0",
           "Microsoft.Extensions.Logging.Debug": "1.0.2",
           "AutoMapper": "6.0.2",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.1.0"
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.1.0",
+          "Microsoft.AspNetCore.Authorization": "1.1.1"
         },
         "compile": {
           "TheWorld.dll": {}
@@ -2996,7 +2997,8 @@
           "System.Linq": "4.3.0",
           "Microsoft.Extensions.Logging.Debug": "1.0.2",
           "AutoMapper": "6.0.2",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.1.0"
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.1.0",
+          "Microsoft.AspNetCore.Authorization": "1.1.1"
         },
         "runtime": {
           "TheWorld.dll": {}

@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 using TheWorld.Controllers.Api;
 using TheWorld.Models;
 using TheWorld.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TheWorld.Controllers.Api
 {
     [Route("api/trips")] //put as base route for entire class
+  //  [Authorize]
     public class TripControllers : Controller
     {
         

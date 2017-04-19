@@ -1,0 +1,157 @@
+﻿<!--Copy all/[paste] from index.html-->
+<!--Razor supports a number of C# constructs - on add key se is the  and braces to have arbitrary C# content in there-->
+<!-- use model for IEnumerable trip / part ef - model becomes collection that was passed in-->
+<!--show raw data before aModel ienum, in the map below add var item in model-->
+
+
+@model IEnumerable<TheWorld.Models.Trip>
+@{
+    ViewBag.Title = "Home Page";
+    //Layout = "_Layout"; //or INstead of doing this on every page add new item and create _viewstart.cshtml
+
+}
+
+<div class="row">
+    <!--Add top level div with class called "row" (Container for making grid decisions inside of)-->
+    <div class="col-md-6">
+
+        <h1>ADPC Web DevOps - Trips</h1>
+        <p>This will be used as ADPC's Website's Platform </p> <!-- Paragraph level text - simple blocks of text-->
+
+        <form>
+            <div class="form-group">
+                <label>Date</label> <!-- added bootsrap form-group & group below-->
+                <input class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input class="form-control" />
+            </div>
+            <div><input type="submit" value="Add" class="btn btn-success" /></div>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <h2>The Map</h2>
+        <!--Show data-->
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>@item.Name :@item.DateCreated.ToString("d")</li><!--"d" to short string so we can see it-->
+            }
+        </ul>
+
+    </div>
+</div>
+
+
+
+@*<!--DOCTYPE html>
+    <!--Tell browser how to render it, this html will be treated as HTML5 - as it parses it / reads it, it does so top down-->
+    <html>
+    <!--Container for everything in page-->
+    <head>
+        <!--first child - Head is where non structural information is kept -->
+        <title>The World - @ViewBag.Title</title>
+        <!--first thing every opage gets is a title
+            --shows in Tab of browser
+            As it will appear in the title bar of the browser -->
+        <meta charset="utf-8" /> <!-- every page should have what it was encoded with (also alows for localization with this main character set)-->
+        <!-- defines the characters set the page is using-->
+        <!--fonts set thoughout the body does not scal very well so lets ctreate a style tag - CSS selector-->
+        <!--practical to share - so create CSS folder under wwwwroot and place style there in seperate file eg site.css-->
+        <!--<style>
+            body
+            {
+                font-family:sans-serif;
+                font-size: 14px;
+            }
+
+        </style>
+             Now lets link to the new file !! IN most cases create seperate style sheet files for each of kind of things you wnat to do-->
+        <link rel="stylesheet" href="css/site.css" />
+
+    </head>
+
+    <body>
+        <!--body style="font-family:sans-serif;font-size: 14px;">-->
+        <!--Shift alt W  from web essentials extention  - creates a div - a structure for some part of the page-->
+        <!--As it will appear in the main section of the browser -->
+        <!--Name them or call them (divs)  id's eg <divid="main"(assumes only one per page)-->
+
+        <div id="sidebar">
+            <!-- user information, password menu-->
+            <img src="img/self.jpg" alt="headshot" class="headshot" /> <!--create a folder in wwwroot for images. Alt becomes important for users that use screen readers - not all users can see img-->
+            <!-- becasuse there may be more than one a page - create a CLASS-->
+            <span id="username">
+                <!--Inline section of code (p-blocks of code) (span smaller section of code)-->
+                Mark Anderson
+            </span>
+            <!-- create menu - unordered lists: UL  | ordered list: OL(for numbered list) | give UL a nem so give it a class of Menu -->
+            <ul class="menu">
+                <!--li: add list item. Then user Anchor tag ( <a href"") to set link-->
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+
+            </ul>
+
+
+        </div>
+
+
+        <div id="wrapper">
+            <div id="main">
+                <div>
+                    <button id="sidebarToggle">Toggle Menu</button>
+                </div>
+
+                <!--main section-->
+                <h1>ADPC Web DevOps</h1>
+                <p>This will be used as ADPC's Website's Platform </p> <!-- Paragraph level text - simple blocks of text-->
+
+                <form>
+                    <!--Collect information from the user-->
+                    <!--Set controls we want to use -->
+                    <div>
+                        <label> Date</label><!--a label for other controls on the page -->
+                        <!--what date someone wats to visit someone in the world-->
+                        <input /> <!--default type is text-->
+                    </div>
+                    <div>
+                        <label>Location</label>   <!--where they want to go-->
+                        <input />
+                    </div>
+                    <div>
+                        <input type="submit" value="Add" />    <!-- Button to send us the information--> <!--default text "Submit Query" (without the "Add'")-->
+                    </div>
+                </form>
+            </div><!--HEADER-->
+
+
+            <div id="footer">
+                <!--footer-->
+                <!-- escaping a character r - called entities in HTML" all the start with empersand &-->
+                &copy; 2017 ADPC.
+            </div><!--FOOTER-->
+        </div><!--wrapper-->
+        <!--JAVASCRIPT-- sample on username - start give id  (rememebr top down)-->
+        <!--Doing not like this we are not able to create reusable scripts/part of Java in multiple pages
+            So typically not use - but rather in therir own folder-->
+        <!--<script type="text/javascript">
+            //var ele = document.getElementById("username");
+            ////now we can do a few things in raw form - assign classes, setting styles etc.
+            ////we going to change text inside
+            //ele.innerHTML = "MadDad Java";
+            So typically not use - but rather in therir own folder
+        </script-->
+        <script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+
+        <script type="text/javascript" src="js/site.js"></script> <!--// made a reference to it in source folder wwwroot - js-->
+
+
+
+
+
+    </body>
+
+    </html>*@

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TheWorld.ViewModels
+
 {
     public class TripViewModel
     {

@@ -33,17 +33,23 @@ namespace TheWorld.Controllers.Web
             {
                 var signInResult = await _signInManager.PasswordSignInAsync(vm.UserName,
                                                                        vm.Password,
-                                                                       true, true);
+                                                                       true, false);
                 if (signInResult.Succeeded)
                 {
                     if (string.IsNullOrWhiteSpace(returnURL))
-                    return RedirectToAction("Trips", "App");
+                    {
+
+                        return RedirectToAction("Trips", "App");
+                    }
+                    else
+                    {
+                        return Redirect(returnURL);//to where they attempted to go
+                    }
                 }
                 else
                 {
-                    return Redirect(returnURL);//to where they attempted to go
-                }
                     ModelState.AddModelError("", "Username or Password Incorrect");
+                }
             }
             return View();
 

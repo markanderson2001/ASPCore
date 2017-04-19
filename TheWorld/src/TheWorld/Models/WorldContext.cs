@@ -13,7 +13,7 @@ namespace TheWorld.Models
 {
     //public class WorldContext : DbContext  //add the package Ms.entityframeworkCore //
         public class WorldContext : IdentityDbContext<WorldUser>  ////added identity,
-                                                       // takes generic argument that represents the entity tahta its going to store our user info;
+                                                       // takes generic argument that represents the entity that its going to store our user info;
                                                        //like Username and password and email...
 
     {

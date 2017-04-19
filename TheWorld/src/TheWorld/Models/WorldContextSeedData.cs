@@ -18,11 +18,7 @@ namespace TheWorld.Models
             _userManager = userManager;
         }
 
-        public Task EnsureSeedDataAsync { get; internal set; }
-
-        //  public object Trips { get; internal set; }
-
-        //create method
+               //create method
         public async Task EnsureSeedData()
         {
             //Sample user population
@@ -35,12 +31,11 @@ namespace TheWorld.Models
                     Email = "mark.anderson@theworld.com"
                 };
                 //use usermanager to create the new user
-                await _userManager.CreateAsync(user, "P@$$w0rd!");// PasswordHasher has to have certain char, length, complexity..
+                await _userManager.CreateAsync(user, "P@ssw0rd!");// PasswordHasher has to have certain char, length, complexity..
             }
+
                 if (!_context.Trips.Any())  //any boolean if any objects in it, could also put a lambda here. Add the ! so if there arent any trips then;
-            {
-                
-               
+            {  
                 //if no trips we'll ad some sample data
                 var usTrip = new Trip()
                 {

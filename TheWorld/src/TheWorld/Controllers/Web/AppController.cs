@@ -39,9 +39,9 @@ namespace TheWorld.Controllers.Web
         {
             _mailService = mailService;
             _config = config;
-            // _context = context;
             _repository = repository;
             _logger = logger; //allows us to look and trap errors --so try catch incase something bad happens in query IActionresult
+                              // _context = context;
         }
 
         //METHOD
@@ -51,13 +51,13 @@ namespace TheWorld.Controllers.Web
             //now we can take this data and pass it into the view:
             // No datbase provider has been configured for this DBContext
          //   try
-            {
+            
              //   var data = _repository.GetAllTrips();
           return View(); //remove data as it is hadled by after authentication
                 //return View();             //will tell it to find, render that view and return to user
                 // no we need the actual view - called a Razor page that represents this view
                 // do this by creating a new set of directories - add new file theWorld/Views
-            }
+            
             //catch (Exception ex)
             //{
             //    _logger.LogError($"Failed to get trips in Index page: {ex.Message}");

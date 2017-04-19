@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 
 <html> 
+
 <head>
 
     <title>The World - @ViewBag.Title</title>
@@ -25,36 +26,39 @@
 <body>
 
     <div id="sidebar">
-        <!--ONly show if we're logged in-->
+        <!--Only show if we're logged in-->
         @if (User.Identity.IsAuthenticated)
         {
             <img src="~/img/self.jpg" alt="headshot" class="headshot" /> <!--create a folder in wwwroot for images. Alt becomes important for users that use screen readers - not all users can see img-->
-            <span id="username">@User.Identity.Name</span><!--Use user object-->
+            <span id="userName">@User.Identity.Name</span><!--Use user object-->
             <!--<span id="username"> Mark Anderson </span>-->
         }
         <ul class="nav">
             <!--another is navbar - includes navigation elements, and can include btns and such-->
             <!--<ul class="menu">-->
+            <!--<li class="active"><a href="/">Home</a></li><!-- could simply add links with "/" -->
+            <!--Better idea with Tag Helpers; Iinstead of href-->
 
-
-
-                <!--<li class="active"><a href="/">Home</a></li><!-- could simply add links with "/" -->
-                <!--Better idea with Tag Helpers; Iinstead of href-->
-      
-                <li class="active"><a asp-controller="App" asp-action="Index">Home</a></li>
-                <li><a asp-controller="App" asp-action="About">About</a></li><!-- could simply add links with: href="/app/About"< -->
-                        <li><a asp-controller="App" asp-action="Contact">Contact</a></li> <!--"/app/cont">Contact-->
-        @if (User.Identity.IsAuthenticated)
-        {   
-                <li><a asp-controller="App" asp-action="Trips">Trips</a></li> 
-                <li><a asp-controller="Auth" asp-action="Logout">Logout</a></li> 
-        }               <!--Tag helpers generates the href programmatically while being rendered on the server-->
-                <!--ensure to enable tag helpers insert project; in Project.json add new dependency "Microsoft.AspNetCore.Mvc.TagHelpers": "1.1.2"-->
-                <!--the wire them up, with another view; View Imports. In _Layout at top we can inViews now - "(a)inject -->
-                <!--add view with inject for wiring tag helper -->
-                <!-- inject IhostingEnvironment env - we want service to be available everywhere so we do it in Views, adding a new type of view Called MVC ViewImports Page -->
-
-            </ul>
+            <li class="active"><a asp-controller="App" asp-action="Index">Home</a></li>
+            <li><a asp-controller="App" asp-action="About">About</a></li><!-- could simply add links with: href="/app/About"< -->
+            <li><a asp-controller="App" asp-action="Contact">Contact</a></li> <!--"/app/cont">Contact-->
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li><a asp-action="Trips" asp-controller="App">Your Trips</a></li>
+                <li><a asp-action="Logout" asp-controller="Auth">Logout</a></li>
+            }
+            else
+            {
+                <li><a asp-action="Login" asp-controller="Auth">Login</a></li>
+            }
+            <!--Tag helpers generates the href programmatically while being rendered on the server-->
+            <!--ensure to enable tag helpers insert project; in Project.json add new dependency "Microsoft.AspNetCore.Mvc.TagHelpers": "1.1.2"-->
+            <!--the wire them up, with another view; View Imports. In _Layout at top we can inViews now - "(a)inject -->
+            <!--add view with inject for wiring tag helper -->
+            <!-- inject IhostingEnvironment env - we want service to be available everywhere so we do it in Views, adding a new type of view Called MVC ViewImports Page -->
+            
+           
+        </ul>
     </div>
 
 
@@ -113,11 +117,11 @@
 
         <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="~/js/site.js"></script> <!--// made a reference to it in source folder wwwroot - js-->
+   
         <!--added from validation in bower json and contactpage-->
         @RenderSection("scripts", false) <!--for pages that requires script to be run - to true. Allows part of code to be emitted in certain places.Referenced to Contact page-->
     
-
+    <script type="text/javascript" src="~/js/site.js"></script> <!--// made a reference to it in source folder wwwroot - js-->
 </body>
 
 </html>

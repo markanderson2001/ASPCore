@@ -3,15 +3,20 @@
 <!-- use model for IEnumerable trip / part ef - model becomes collection that was passed in-->
 <!--show raw data before aModel ienum, in the map below add var item in model-->
 
-
+<!-- Core of app - add trips and stops and display map for stops using angular, for now only on this page-->
 @model IEnumerable<TheWorld.Models.Trip>
 @{
     ViewBag.Title = "Home Page";
     //Layout = "_Layout"; //or INstead of doing this on every page add new item and create _viewstart.cshtml
-
+}
+<!--Add Agular-->
+@section Scripts {
+    <script src ="~/lib/angular/angular.min.js"></script>
 }
 
-<div class="row">
+<div class="row" ng-app>
+   <!-- <div>//{}"Two plus two equals: " + 2 (2 +2)}} </div> < worst sample -bad practice--> 
+
     <!--Add top level div with class called "row" (Container for making grid decisions inside of)-->
     <div class="col-md-6">
 

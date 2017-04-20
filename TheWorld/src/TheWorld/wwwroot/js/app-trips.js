@@ -1,6 +1,12 @@
 ﻿//app-trips.js
 //**Trip View of the app controller**\\
+//create function expression - to take code out of the global scope
+ 
+(function () {
 
-//crete function expression - to take code out of the global scope
+    "use strict";
 
+    // Creating the Module
+    angular.module("app-trips", [""]);
 
+})();

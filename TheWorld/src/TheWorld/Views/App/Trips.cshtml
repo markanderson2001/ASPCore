@@ -12,19 +12,77 @@
 @section Scripts {
 
     <script src="~/lib/angular/angular.min.js"></script> 
+    <script src="~/lib/angular-route/angular-route.min.js"></script>
+    <script src="~/js/simpleControls.js"></script>
     <script src="~/js/app-trips.js"></script>   
     <script src="~/js/tripsController.js"></script>
     
 
 }
+
+
 <!--instead of force binding lets use a controller, creating a var called vm, that we can use for databinding-->
 <div class="row" ng-app="app-trips">
-    <!--/essentially bootstrapping our trips page with new module called app trips-->
+
+    <!-- find the ng view and use as placeholde i.e tripscontroller.js-->
+    <div ng-view></div> 
+
+</div>
+<!-- <div>//{}"Two plus two equals: " + 2 (2 +2)}} </div> < worst sample -bad practice -->
+<!--Add top level div with class called "row" (Container for making grid decisions inside of)-->
+<div class="col-md-6">
+
+    <h1>Anderson DevOps - Trips</h1>
+    <p>This will be used for Future  Web Platforms </p> <!-- Paragraph level text - simple blocks of text-->
+
+    <form>
+        <div class="form-group">
+            <label>Date</label> <!-- added bootsrap form-group & group below-->
+            <input class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Location</label>
+            <input class="form-control" />
+        </div>
+        <div><input type="submit" value="Add" class="btn btn-success" /></div>
+    </form>
+</div>
+<div class="col-md-6">
+    <h2>The Map</h2>
+    <!--Show data-->
+    <ul>
+        @foreach (var item in Model)
+            {
+            <li>@item.Name :@item.DateCreated.ToString("d")</li><!--"d" to short string so we can see it-->
+        }
+    </ul>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <!--moved to new tripsview in wwwroot-->
+    @*<!--/essentially bootstrapping our trips page with new module called app trips-->
         <div ng-controller="tripsController as vm" class="col-md-6 col-md-offset-3">
             <!--//show if error getting data. show if error exists add:  -->
             <div class="text-danger" ng-show="vm.errorMessage">{{ vm.errorMessage }}</div>
+                        
             <!--show if server busy or taking time, and use font awesome icons, crete spinner icon and spin to rotate it-->
-            <div ng-show="vm.isBusy" class="text-center"><i class="fa fa-spinner fa-spin"></i> Loading...</div>
+            <!--Replace this with Directive (reusable code; -simpleControls.js)-->
+           <!-- <div ng-show="vm.isBusy" class="text-center"><i class="fa fa-spinner fa-spin"></i> Loading...</div>-->
+            <!--<wait-cursor ng-show="vm.isBusy"></wait-cursor>/wait-cursor>-->
+            <!--<wait-cursor ng-show="true"></wait-cursor>-->
+            <wait-cursor display-when="vm.isBusy"></wait-cursor>
+            
+           
             <!--create table using bootstrap table classes-->
         <table class ="table table-responsive table-striped">
             <!--{ vm.name }-->
@@ -42,6 +100,8 @@
             </tr>
         </table>
 
+            <!-- #region newTripForm -->
+
             <!--Create form and specify no validate, give name of New trip form-->
             <!--the ng-submit  on top will handle the "add" btn, notice parenthesis - tells it to call the add trip function, specified on our VM-->
             <!--..so means we need a vm. add trip .. on trip controller-->
@@ -49,7 +109,7 @@
                 <div class="form-group">
                     <label for="name">Trip Name</label>
                     <!--if someone clicks on label itself(name) takes them to this input. Also add directive called NG- model the..
-                         vm.newtrip.name specifies the property to set when someone types in this control. If it doesnt exist it will crete the new property-->
+                 vm.newtrip.name specifies the property to set when someone types in this control. If it doesnt exist it will crete the new property-->
                     <input class="form-control" type="text" id="name" name="name" ng-model="vm.newTrip.name" required ng-minlength="5" />
                     <!--<span ng-show="newTripForm.name.$error.required">Name is Required</span> ...give it a class to say warning-->
                     <span ng-show="newTripForm.name.$error.required" class="text-warning">Name is Required</span>
@@ -62,44 +122,18 @@
                     <input type="submit" value="Add"
                            class="btn btn-success btn-sm"
                            ng-disabled="newTripForm.$invalid" /> <!--if form invalid - disable the control-->
-                </div>
-            </form>
+                </div>*@
+           <!-- </form>-->
 
+            <!-- #endregion -->
+
+           
+
+          
 
         
 
-    </div>
-        <!-- <div>//{}"Two plus two equals: " + 2 (2 +2)}} </div> < worst sample -bad practice -->
-        <!--Add top level div with class called "row" (Container for making grid decisions inside of)-->
-        <div class="col-md-6">
 
-            <h1>Anderson DevOps - Trips</h1>
-            <p>This will be used for Future  Web Platforms </p> <!-- Paragraph level text - simple blocks of text-->
-
-            <form>
-                <div class="form-group">
-                    <label>Date</label> <!-- added bootsrap form-group & group below-->
-                    <input class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Location</label>
-                    <input class="form-control" />
-                </div>
-                <div><input type="submit" value="Add" class="btn btn-success" /></div>
-            </form>
-        </div>
-        <div class="col-md-6">
-            <h2>The Map</h2>
-            <!--Show data-->
-            <ul>
-                @foreach (var item in Model)
-            {
-                    <li>@item.Name :@item.DateCreated.ToString("d")</li><!--"d" to short string so we can see it-->
-                }
-            </ul>
-
-        </div>
-    </div>
 
 
 

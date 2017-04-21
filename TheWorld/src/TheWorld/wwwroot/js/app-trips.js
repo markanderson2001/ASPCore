@@ -6,7 +6,7 @@
 
     "use strict";
 
-    // Creating the Module
-    angular.module("app-trips", [""]);
-
+    // Creating the Module -(with empty array)
+    angular.module("app-trips", []);
+    
 })();

@@ -4,6 +4,7 @@
       "name": "Microsoft.NETCore.App",
       "version": "1.0.1"
     },
+    "win81-x64": {},
     "gcServer": true
   }
 }

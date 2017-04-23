@@ -65,8 +65,11 @@
 
         if (stops && stops.length > 0) {
 
-            var mapStops = _.map(stops, function (item) {
+            var mapStops = _.map(stops, function (item) {//undersore library - map one type to another
                 return {
+                    //lat: item.latitude,
+                    //long: item.longitude,
+                    //info: item.name
                     lat: item.latitude,
                     long: item.longitude,
                     info: item.name

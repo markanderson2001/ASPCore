@@ -3,22 +3,23 @@
     ViewBag.Title = "Home Page";
 }
 <!--org -moved to new tripsview in wwwroot-->
-@section Scripts {
+
     
-<script src="~/lib/underscore/underscore-min.js"></script>
+@*<script src="~/lib/underscore/underscore-min.js"></script>
 <script src="~/lib/angular/angular.min.js"></script>
 <script src="~/lib/angular-route/angular-route.min.js"></script>
 <script src="~/js/simpleControls.js"></script>
 <script src="~/js/app-trips.js"></script>
 <script src="~/js/tripsController.js"></script>
-<script src="~/js/tripEditorController.js"></script>
+<script src="~/js/tripEditorController.js"></script>*@
 
-    <!--
-    <script src="~/lib/underscore/underscore-min.js"></script>
+    @section Scripts {
+    <script src="~/lib/underscore/underscore-min.js"></script><!---do link like queries ..,ap diff vars-->
     <script src="~/lib/angular/angular.min.js"></script>
     <script src="~/lib/angular-route/angular-route.min.js"></script>
-    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-    <script src="~/lib/gmaps/gmaps.min.js"></script>
+   <script  src="http://maps.google.com/maps/api/js?key=AIzaSyBZaVMzXyMS6OXuqiapqaa-etLh4lMxRIk"></script>       
+  
+    <script src="~/lib/gmaps/gmaps.js"></script>
     <script src="~/lib/travelmap/travelmap.min.js"></script>
 
     <environment names="Development">
@@ -33,11 +34,10 @@
         <script src="~/lib/_app/app-trips.js"></script>
         <script src="~/lib/_app/tripsController.js"></script>
         <script src="~/lib/_app/tripEditorController.js"></script>
-    </environment-->
+    </environment>
 
 }
 <div class="row" ng-app="app-trips">
-
     <div ng-view></div><!--container where views injected-->
 </div>
 

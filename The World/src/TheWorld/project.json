@@ -55,17 +55,22 @@
   },
 
   "runtimeOptions": {
+    "win81-x64": {},
     "gcServer": true
   },
 
   "publishOptions": {
     "include": [
       "wwwroot",
-      "web.config"
+      "web.config",
+      "Views",
+      "config.json"
     ]
   },
 
   "scripts": {
+    "prepublish": [ "npm install", "bower install" ],
+    "prepare": ["ulp minify"],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }

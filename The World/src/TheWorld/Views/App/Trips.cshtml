@@ -1,0 +1,330 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+<!--org -moved to new tripsview in wwwroot-->
+@section Scripts {
+    
+<script src="~/lib/underscore/underscore-min.js"></script>
+<script src="~/lib/angular/angular.min.js"></script>
+<script src="~/lib/angular-route/angular-route.min.js"></script>
+<script src="~/js/simpleControls.js"></script>
+<script src="~/js/app-trips.js"></script>
+<script src="~/js/tripsController.js"></script>
+<script src="~/js/tripEditorController.js"></script>
+
+    <!--
+    <script src="~/lib/underscore/underscore-min.js"></script>
+    <script src="~/lib/angular/angular.min.js"></script>
+    <script src="~/lib/angular-route/angular-route.min.js"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="~/lib/gmaps/gmaps.min.js"></script>
+    <script src="~/lib/travelmap/travelmap.min.js"></script>
+
+    <environment names="Development">
+        <script src="~/js/simpleControls.js"></script>
+        <script src="~/js/app-trips.js"></script>
+        <script src="~/js/tripsController.js"></script>
+        <script src="~/js/tripEditorController.js"></script>
+    </environment>
+
+    <environment names="Production,Staging">
+        <script src="~/lib/_app/simpleControls.js"></script>
+        <script src="~/lib/_app/app-trips.js"></script>
+        <script src="~/lib/_app/tripsController.js"></script>
+        <script src="~/lib/_app/tripEditorController.js"></script>
+    </environment-->
+
+}
+<div class="row" ng-app="app-trips">
+
+    <div ng-view></div><!--container where views injected-->
+</div>
+
+
+    @*<!--Copy all/[paste] from index.html--
+        <!--Razor supports a number of C# constructs - on add key se is the  and braces to have arbitrary C# content in there-->
+        <!-- use model for IEnumerable trip / part ef - model becomes collection that was passed in-->
+        <!--show raw data before aModel ienum, in the map below add var item in model-->
+        <!-- Core of app - add trips and stops and display map for stops using angular, for now only on this page-->
+        <!--*model IEnumerable<TheWorld.Models.Trip>* <!--Rid of model - service side view, as data acces though API -->
+
+            @{
+          ViewBag.Title = "Home Page";
+        }
+        @section Scripts {
+          <script src="~/lib/underscore/underscore-min.js"></script>
+          <script src="~/lib/angular/angular.min.js"></script>
+          <script src="~/lib/angular-route/angular-route.min.js"></script>
+          <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+          <script src="~/lib/gmaps/gmaps.min.js"></script>
+          <script src="~/lib/travelmap/travelmap.min.js"></script>
+
+          <environment names="Development">
+            <script src="~/js/simpleControls.js"></script>
+            <script src="~/js/app-trips.js"></script>
+            <script src="~/js/tripsController.js"></script>
+            <script src="~/js/tripEditorController.js"></script>
+          </environment>
+
+          <environment names="Production,Staging">
+            <script src="~/lib/_app/simpleControls.js"></script>
+            <script src="~/lib/_app/app-trips.js"></script>
+            <script src="~/lib/_app/tripsController.js"></script>
+            <script src="~/lib/_app/tripEditorController.js"></script>
+          </environment>
+
+        }
+        <div class="row" ng-app="app-trips">
+
+          <div ng-view></div>
+
+        </div>
+
+
+        @{
+            ViewBag.Title = "Home Page";
+            //Layout = "_Layout"; //or INstead of doing this on every page add new item and create _viewstart.cshtml
+        }
+        <!--Add Agular-->
+        @section Scripts {
+
+        <script src="~/lib/underscore/underscore-min.js"></script>
+        <script src="~/lib/angular/angular.min.js"></script>
+        <script src="~/lib/angular-route/angular-route.min.js"></script>
+        <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+        <script src="~/lib/gmaps/gmaps.min.js"></script>
+        <script src="~/lib/travelmap/travelmap.min.js"></script>
+        <script src="~/js/simpleControls.js"></script>
+        <script src="~/js/app-trips.js"></script>
+        <script src="~/js/tripsController.js"></script>
+        <script src="~/js/tripEditorController.js"></script>
+
+            @*<script src="~/lib/underscore/underscore-min.js"></script>
+            <script src="~/lib/angular/angular.min.js"></script>
+            <script src="~/lib/angular-route/angular-route.min.js"></script>
+            <script src="~/js/simpleControls.js"></script>
+            <script src="~/js/app-trips.js"></script>
+            <script src="~/js/tripsController.js"></script>
+            <script src="~/js/tripEditorController.js"></script>0
+
+
+    }*@
+
+
+    <!--instead of force binding lets use a controller, creating a var called vm, that we can use for databinding-->
+    <!--Description of what module to use;-->
+    @*<div class="row" ng-app="app-trips">
+
+            <!-- Place for the view; find the ng view and use as placeholder i.e tripscontroller.js-->
+            <div ng-view></div>
+
+        </div>>*@
+    <!-- <div>//{}"Two plus two equals: " + 2 (2 +2)}} </div> < worst sample -bad practice -->
+    <!--Add top level div with class called "row" (Container for making grid decisions inside of)-->
+    <!--moved to new tripeditorview in wwwroot-->
+    @*<div class="col-md-6">
+
+            <h1>Anderson DevOps - Trips</h1>
+            <p>This will be used for Future  Web Platforms </p> <!-- Paragraph level text - simple blocks of text-->
+
+            <form>
+                <div class="form-group">
+                    <label>Date</label> <!-- added bootsrap form-group & group below-->
+                    <input class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input class="form-control" />
+                </div>
+                <div><input type="submit" value="Add" class="btn btn-success" /></div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h2>The Map</h2>
+            <!--Show data-->
+            <ul>
+                @foreach (var item in Model)
+                    {
+                    <li>@item.Name :@item.DateCreated.ToString("d")</li><!--"d" to short string so we can see it-->
+                }
+            </ul>
+
+        </div>*@
+
+
+
+
+
+
+
+
+
+
+
+    <!--moved to new tripsview in wwwroot-->
+    @*<!--/essentially bootstrapping our trips page with new module called app trips-->
+        <div ng-controller="tripsController as vm" class="col-md-6 col-md-offset-3">
+            <!--//show if error getting data. show if error exists add:  -->
+            <div class="text-danger" ng-show="vm.errorMessage">{{ vm.errorMessage }}</div>
+
+            <!--show if server busy or taking time, and use font awesome icons, crete spinner icon and spin to rotate it-->
+            <!--Replace this with Directive (reusable code; -simpleControls.js)-->
+           <!-- <div ng-show="vm.isBusy" class="text-center"><i class="fa fa-spinner fa-spin"></i> Loading...</div>-->
+            <!--<wait-cursor ng-show="vm.isBusy"></wait-cursor>/wait-cursor>-->
+            <!--<wait-cursor ng-show="true"></wait-cursor>-->
+            <wait-cursor display-when="vm.isBusy"></wait-cursor>
+
+
+            <!--create table using bootstrap table classes-->
+        <table class ="table table-responsive table-striped">
+            <!--{ vm.name }-->
+            <!--repeat - Walk though collections and build up the mark up-->
+            <!--trip in vmtrips angular is like a for each statement; variable trip,for each one, in vmtrips,and create new row for each-->
+            <tr ng-repeat="trip in vm.trips">
+                <!--specify Column detail-->
+                <!--Data binding syntax allows for filtersl: filters are formatters or small pieces of code use with pipe "|" and name of filer -->
+                <!-- Filter camn be eg: |date ;will be default date: April 20, 2017-->
+                <!--Filer or customize; |date:'shortDate' or 'MM-dd-yyyy'  -->
+                <td>{{ trip.name }}</td>
+                <td>{{ trip.created |date:'MM-dd-yyyy'}}</td>
+                <!--Add manage button - no data binding-->
+                <td><a href="#" class="btn btn-sm btn-primary">Manage</a> </td>
+            </tr>
+        </table>
+
+            <!-- #region newTripForm -->
+
+            <!--Create form and specify no validate, give name of New trip form-->
+            <!--the ng-submit  on top will handle the "add" btn, notice parenthesis - tells it to call the add trip function, specified on our VM-->
+            <!--..so means we need a vm. add trip .. on trip controller-->
+            <form novalidate name="newTripForm" ng-submit="vm.addTrip()">
+                <div class="form-group">
+                    <label for="name">Trip Name</label>
+                    <!--if someone clicks on label itself(name) takes them to this input. Also add directive called NG- model the..
+                 vm.newtrip.name specifies the property to set when someone types in this control. If it doesnt exist it will crete the new property-->
+                    <input class="form-control" type="text" id="name" name="name" ng-model="vm.newTrip.name" required ng-minlength="5" />
+                    <!--<span ng-show="newTripForm.name.$error.required">Name is Required</span> ...give it a class to say warning-->
+                    <span ng-show="newTripForm.name.$error.required" class="text-warning">Name is Required</span>
+                    <span ng-show="newTripForm.name.$error.minlength" class="text-warning">Name must be at least five characters</span>
+
+                </div>
+                <div class="form-group">
+                    <!--also add some bootstrap classes to support sumbit look-->
+                    <!--the ng-submit  on top will handle the "add" btn-->
+                    <input type="submit" value="Add"
+                           class="btn btn-success btn-sm"
+                           ng-disabled="newTripForm.$invalid" /> <!--if form invalid - disable the control-->
+                </div>*@
+    <!-- </form>-->
+    <!-- #endregion -->
+    @*<!--DOCTYPE html>
+        <!--Tell browser how to render it, this html will be treated as HTML5 - as it parses it / reads it, it does so top down-->
+        <html>
+        <!--Container for everything in page-->
+        <head>
+            <!--first child - Head is where non structural information is kept -->
+            <title>The World - @ViewBag.Title</title>
+            <!--first thing every opage gets is a title
+                --shows in Tab of browser
+                As it will appear in the title bar of the browser -->
+            <meta charset="utf-8" /> <!-- every page should have what it was encoded with (also alows for localization with this main character set)-->
+            <!-- defines the characters set the page is using-->
+            <!--fonts set thoughout the body does not scal very well so lets ctreate a style tag - CSS selector-->
+            <!--practical to share - so create CSS folder under wwwwroot and place style there in seperate file eg site.css-->
+            <!--<style>
+                body
+                {
+                    font-family:sans-serif;
+                    font-size: 14px;
+                }
+
+            </style>
+                 Now lets link to the new file !! IN most cases create seperate style sheet files for each of kind of things you wnat to do-->
+            <link rel="stylesheet" href="css/site.css" />
+
+        </head>
+
+        <body>
+            <!--body style="font-family:sans-serif;font-size: 14px;">-->
+            <!--Shift alt W  from web essentials extention  - creates a div - a structure for some part of the page-->
+            <!--As it will appear in the main section of the browser -->
+            <!--Name them or call them (divs)  id's eg <divid="main"(assumes only one per page)-->
+
+            <div id="sidebar">
+                <!-- user information, password menu-->
+                <img src="img/self.jpg" alt="headshot" class="headshot" /> <!--create a folder in wwwroot for images. Alt becomes important for users that use screen readers - not all users can see img-->
+                <!-- becasuse there may be more than one a page - create a CLASS-->
+                <span id="username">
+                    <!--Inline section of code (p-blocks of code) (span smaller section of code)-->
+                    Mark Anderson
+                </span>
+                <!-- create menu - unordered lists: UL  | ordered list: OL(for numbered list) | give UL a nem so give it a class of Menu -->
+                <ul class="menu">
+                    <!--li: add list item. Then user Anchor tag ( <a href"") to set link-->
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+
+                </ul>
+
+
+            </div>
+
+
+            <div id="wrapper">
+                <div id="main">
+                    <div>
+                        <button id="sidebarToggle">Toggle Menu</button>
+                    </div>
+
+                    <!--main section-->
+                    <h1>ADPC Web DevOps</h1>
+                    <p>This will be used as ADPC's Website's Platform </p> <!-- Paragraph level text - simple blocks of text-->
+
+                    <form>
+                        <!--Collect information from the user-->
+                        <!--Set controls we want to use -->
+                        <div>
+                            <label> Date</label><!--a label for other controls on the page -->
+                            <!--what date someone wats to visit someone in the world-->
+                            <input /> <!--default type is text-->
+                        </div>
+                        <div>
+                            <label>Location</label>   <!--where they want to go-->
+                            <input />
+                        </div>
+                        <div>
+                            <input type="submit" value="Add" />    <!-- Button to send us the information--> <!--default text "Submit Query" (without the "Add'")-->
+                        </div>
+                    </form>
+                </div><!--HEADER-->
+
+
+                <div id="footer">
+                    <!--footer-->
+                    <!-- escaping a character r - called entities in HTML" all the start with empersand &-->
+                    &copy; 2017 ADPC.
+                </div><!--FOOTER-->
+            </div><!--wrapper-->
+            <!--JAVASCRIPT-- sample on username - start give id  (rememebr top down)-->
+            <!--Doing not like this we are not able to create reusable scripts/part of Java in multiple pages
+                So typically not use - but rather in therir own folder-->
+            <!--<script type="text/javascript">
+                //var ele = document.getElementById("username");
+                ////now we can do a few things in raw form - assign classes, setting styles etc.
+                ////we going to change text inside
+                //ele.innerHTML = "MadDad Java";
+                So typically not use - but rather in therir own folder
+            </script-->
+            <script type="text/javascript" src="lib/jquery/dist/jquery.min.js"></script>
+
+            <script type="text/javascript" src="js/site.js"></script> <!--// made a reference to it in source folder wwwroot - js-->
+
+
+
+
+
+        </body>
+
+        </html>*@

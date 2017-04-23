@@ -1,0 +1,20 @@
+﻿<!--Copy of index view-->
+@model IEnumerable<TheWorld.Models.Trip>
+
+@{
+    ViewBag.Title = "Home Page";
+    //Layout = "_Layout"; //or INstead of doing this on every page add new item and create _viewstart.cshtml
+
+}
+
+<div class="row">
+    <!--Add top level div with class called "row" (Container for making grid decisions inside of)-->
+    <!--create new class of 12 columns-->
+    <div class="col-md-12">
+       <h1>Welcome to Trip Record Systems</h1>
+        <p> This app will allow you to plan your World trips</p>
+        <!--create button to go to their trip page wheter logged in or not. Use tag-helpers to point to new trips page-->
+        <a asp-controller="App" asp-action="Trips" class="btn btn-lg btn-success">View My Trips</a>
+    </div>
+</div>
+

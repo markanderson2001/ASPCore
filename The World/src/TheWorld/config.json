@@ -1,0 +1,11 @@
+{
+  "Mailsettings": {
+    "ToAddress": "markanderson2001@live.com"
+  },
+  "ConnectionStrings": {
+    "WorldContextConnection": "Server=(localdb)\\MSSQLLocalDB;Database=TheWorldDb; Trusted_Connection=true;MultipleActiveResultSets=true;"
+  },
+  "Keys": {
+    "BingKey": "DONTEVERGIVEOUTKEYSINSOURCECONTROL"
+  }
+}
